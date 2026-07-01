@@ -7,10 +7,14 @@ import { Navbar } from '../pages/Navbar';
 import { autoConfirmUser, cleanupTestUser } from '../helpers/auth.helper';
 
 test.describe('Auth Flow Lifecycle', () => {
-  const dynamicEmail = `e2e-${Date.now()}@example.com`;
+  let dynamicEmail: string;
   const password = config.testUserPassword;
 
-  test.afterAll(async () => {
+  test.beforeEach(() => {
+    dynamicEmail = `e2e-${Date.now()}-${Math.random().toString(36).substring(7)}@example.com`;
+  });
+
+  test.afterEach(async () => {
     await cleanupTestUser(dynamicEmail);
   });
 

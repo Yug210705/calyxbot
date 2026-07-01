@@ -4,10 +4,7 @@
       "C:\\Program Files\\nodejs\\node.exe",
       "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\node_modules\\@playwright\\test\\cli.js",
       "test",
-      "tests/e2e/specs/performance.spec.ts",
-      "tests/e2e/specs/security.spec.ts",
-      "--project=chromium",
-      "--workers=1"
+      "--project=chromium"
     ],
     "configFile": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\playwright.config.ts",
     "rootDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/tests/e2e/specs",
@@ -21,7 +18,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 2
     },
     "preserveOutput": "always",
     "projects": [
@@ -30,7 +27,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 2
         },
         "id": "chromium",
         "name": "chromium",
@@ -46,7 +43,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 2
         },
         "id": "firefox",
         "name": "firefox",
@@ -62,7 +59,7 @@
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 2
         },
         "id": "webkit",
         "name": "webkit",
@@ -103,14 +100,323 @@
     "updateSnapshots": "missing",
     "updateSourceMethod": "patch",
     "version": "1.61.1",
-    "workers": 1,
+    "workers": 2,
     "webServer": {
       "command": "npm run dev",
-      "url": "http://localhost:3000",
+      "url": "https://calyxbot.vercel.app/",
       "reuseExistingServer": true
     }
   },
   "suites": [
+    {
+      "title": "api-contract.spec.ts",
+      "file": "api-contract.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Unified API Contract",
+          "file": "api-contract.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Backend returns unified format on /auth/me",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10092,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[auth.helper] Admin created test user api-1782921614245@example.com\n"
+                        },
+                        {
+                          "text": "[auth.helper] Synced test user api-1782921614245@example.com to backend\n"
+                        },
+                        {
+                          "text": "Auth Response: {\n  access_token: \u001b[32m'eyJhbGciOiJFUzI1NiIsImtpZCI6Ijc3MTdjOWE1LWVhMmEtNGYxOC1iYWM2LTE0ZDhkYWJiMWY3MyIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3BjaG9lbHNmZ3pvcmNiaWRoYnRrLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJjNGRiMTlkYi05Y2NkLTQ4MGMtOGQ3NC1iMDgyM2E4ODU4NDciLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzgyOTI1MjIwLCJpYXQiOjE3ODI5MjE2MjAsImVtYWlsIjoiYXBpLTE3ODI5MjE2MTQyNDVAZXhhbXBsZS5jb20iLCJwaG9uZSI6IiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIiwicHJvdmlkZXJzIjpbImVtYWlsIl19LCJ1c2VyX21ldGFkYXRhIjp7ImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmdWxsX25hbWUiOiJBZG1pbiBDcmVhdGVkIFRlc3QgVXNlciJ9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzgyOTIxNjIwfV0sInNlc3Npb25faWQiOiJkY2RkNzlmOC1hZDJlLTQ5NGQtYTYwZi05YmNmMzk0MDY0NTciLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.Mn7Mrxwq0sFoRB7St1RDX15c09eNMUXWJeupJyfhnk0XiImsS-VW6hRpxubXnx8M8keJowMyMHXGzd5VgO8GcA'\u001b[39m,\n  token_type: \u001b[32m'bearer'\u001b[39m,\n  expires_in: \u001b[33m3600\u001b[39m,\n  expires_at: \u001b[33m1782925220\u001b[39m,\n  refresh_token: \u001b[32m'y5ciyqjhlss7'\u001b[39m,\n  user: {\n    id: \u001b[32m'c4db19db-9ccd-480c-8d74-b0823a885847'\u001b[39m,\n    aud: \u001b[32m'authenticated'\u001b[39m,\n    role: \u001b[32m'authenticated'\u001b[39m,\n    email: \u001b[32m'api-1782921614245@example.com'\u001b[39m,\n    email_confirmed_at: \u001b[32m'2026-07-01T16:00:15.130846Z'\u001b[39m,\n    phone: \u001b[32m''\u001b[39m,\n    confirmed_at: \u001b[32m'2026-07-01T16:00:15.130846Z'\u001b[39m,\n    last_sign_in_at: \u001b[32m'2026-07-01T16:00:20.787979771Z'\u001b[39m,\n    app_metadata: { provider: \u001b[32m'email'\u001b[39m, providers: \u001b[36m[Array]\u001b[39m },\n    user_metadata: { email_verified: \u001b[33mtrue\u001b[39m, full_name: \u001b[32m'Admin Created Test User'\u001b[39m },\n    identities: [ \u001b[36m[Object]\u001b[39m ],\n    created_at: \u001b[32m'2026-07-01T16:00:15.128061Z'\u001b[39m,\n    updated_at: \u001b[32m'2026-07-01T16:00:20.791047Z'\u001b[39m,\n    is_anonymous: \u001b[33mfalse\u001b[39m\n  },\n  weak_password: \u001b[1mnull\u001b[22m\n}\n"
+                        },
+                        {
+                          "text": "[auth.helper] Cleaned up user api-1782921614245@example.com\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-01T16:00:13.903Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "21f2822f25174875fa24-3046ff38826a27b35255",
+              "file": "api-contract.spec.ts",
+              "line": 9,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "auth-flow.spec.ts",
+      "file": "auth-flow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Auth Flow Lifecycle",
+          "file": "auth-flow.spec.ts",
+          "line": 9,
+          "column": 6,
+          "specs": [
+            {
+              "title": "User can sign up, login, and logout",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 18235,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.bg-emerald-500\\\\/10')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.bg-emerald-500\\\\/10')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.bg-emerald-500\\\\/10')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.bg-emerald-500\\\\/10')\u001b[22m\n\n    at SignupPage.expectSuccessMessage (C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts:23:33)\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\auth-flow.spec.ts:32:22",
+                        "location": {
+                          "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts",
+                          "column": 33,
+                          "line": 23
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\pages\\SignupPage.ts:23\n\n\u001b[0m \u001b[90m 21 |\u001b[39m   \u001b[36masync\u001b[39m expectSuccessMessage() {\n \u001b[90m 22 |\u001b[39m     \u001b[36mconst\u001b[39m successBanner \u001b[33m=\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[32m'.bg-emerald-500\\\\/10'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m expect(successBanner)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 24 |\u001b[39m   }\n \u001b[90m 25 |\u001b[39m\n \u001b[90m 26 |\u001b[39m   \u001b[36masync\u001b[39m expectError(message\u001b[33m:\u001b[39m string) {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts",
+                            "column": 33,
+                            "line": 23
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.bg-emerald-500\\\\/10')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.bg-emerald-500\\\\/10')\u001b[22m\n\n\n   at ..\\pages\\SignupPage.ts:23\n\n  21 |   async expectSuccessMessage() {\n  22 |     const successBanner = this.page.locator('.bg-emerald-500\\\\/10');\n> 23 |     await expect(successBanner).toBeVisible({ timeout: 10000 });\n     |                                 ^\n  24 |   }\n  25 |\n  26 |   async expectError(message: string) {\n    at SignupPage.expectSuccessMessage (C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts:23:33)\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\auth-flow.spec.ts:32:22"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-01T16:00:13.816Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\auth-flow-Auth-Flow-Lifecy-e8638-an-sign-up-login-and-logout-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\auth-flow-Auth-Flow-Lifecy-e8638-an-sign-up-login-and-logout-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\auth-flow-Auth-Flow-Lifecy-e8638-an-sign-up-login-and-logout-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts",
+                        "column": 33,
+                        "line": 23
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "df6b40174562c70df515-1a2ae62f85d3f53cb5c3",
+              "file": "auth-flow.spec.ts",
+              "line": 21,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "debug.spec.ts",
+      "file": "debug.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Debug Login",
+          "file": "debug.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "debug login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 13523,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[auth.helper] Admin created test user test-1782921613735@example.com\n"
+                        },
+                        {
+                          "text": "[auth.helper] Synced test user test-1782921613735@example.com to backend\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/login\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/1j54l8njyc9h6.css\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/239j6i8_ui0sr.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/3shya4giyqir4.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/0a0ree1ngq4q_.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/438lsfsru407w.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/turbopack-0x-vkgcbn-hsk.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/21p-i82-2u343.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/0sv0r_s12j56h.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/0w2emjz_uno0m.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/014nw2-kveg0w.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/2au51f5kxj4gx.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/3_ondx859he-r.js\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=ESMN0uHFtARRz41R\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=aqvIQFTrQXhwZMdq\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=1F8-AEclBcB9jFE6\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/signup?_rsc=_H_fFy2_Q06N8BA7\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=JFktGzpgQyK4KTxY\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=Lk_IRk2WavpJrJsC\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/signup?_rsc=1F8-AEclBcB9jFE6\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/signup?_rsc=SyrD8bJX7udM4Ffd\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/signup?_rsc=vMXKetKx_uNlGRnr\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/22dsokwtiq-tc.js\n"
+                        },
+                        {
+                          "text": "<< 303 https://calyxbot.vercel.app/login\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/3g931g-itmu24.js\n"
+                        },
+                        {
+                          "text": "<< 307 https://calyxbot.vercel.app/signup?_rsc=_i_aeImnuN6u1u1r\n"
+                        },
+                        {
+                          "text": "<< 307 https://calyxbot.vercel.app/login?_rsc=_i_aeImnuN6u1u1r\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/dashboard\n"
+                        },
+                        {
+                          "text": "<< 200 https://calyxbot.vercel.app/dashboard\n"
+                        },
+                        {
+                          "text": "[auth.helper] Cleaned up user test-1782921613735@example.com\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-01T16:00:24.321Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5ee6126738e1012db859-8556c97089b4544007ad",
+              "file": "debug.spec.ts",
+              "line": 16,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
     {
       "title": "performance.spec.ts",
       "file": "performance.spec.ts",
@@ -137,32 +443,32 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 35095,
+                      "duration": 33898,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "[auth.helper] Admin created test user perf-1782902004128@example.com\n"
+                          "text": "[auth.helper] Admin created test user perf-1782921646240@example.com\n"
                         },
                         {
-                          "text": "[auth.helper] Synced test user perf-1782902004128@example.com to backend\n"
+                          "text": "[auth.helper] Synced test user perf-1782921646240@example.com to backend\n"
                         },
                         {
-                          "text": "[Performance] Login round-trip latency: 12048.36ms\n"
+                          "text": "[Performance] Login round-trip latency: 14787.98ms\n"
                         },
                         {
-                          "text": "[auth.helper] Cleaned up user perf-1782902004128@example.com\n"
+                          "text": "[auth.helper] Cleaned up user perf-1782921646240@example.com\n"
                         }
                       ],
                       "stderr": [
                         {
-                          "text": "⚠️ Latency warning: 12048.36ms exceeds 5000ms\n"
+                          "text": "⚠️ Latency warning: 14787.98ms exceeds 5000ms\n"
                         }
                       ],
                       "retry": 0,
-                      "startTime": "2026-07-01T10:33:24.170Z",
+                      "startTime": "2026-07-01T16:00:46.271Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -208,19 +514,20 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 16940,
+                      "duration": 4573,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "[auth.helper] Admin created test user test-1782902003954@example.com\n"
-                        },
-                        {
-                          "text": "[auth.helper] Synced test user test-1782902003954@example.com to backend\n"
+                          "text": "[auth.helper] Admin created test user test-1782921613735@example.com\n"
                         }
                       ],
-                      "stderr": [],
+                      "stderr": [
+                        {
+                          "text": "[auth.helper] Failed to sync user to backend: 500 {\"success\":false,\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"An unexpected error occurred.\",\"request_id\":\"\",\"timestamp\":\"2026-07-01T16:00:48.818299+00:00\"}}\n"
+                        }
+                      ],
                       "retry": 0,
-                      "startTime": "2026-07-01T10:34:01.461Z",
+                      "startTime": "2026-07-01T16:00:46.072Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -249,12 +556,16 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 19503,
+                      "duration": 28875,
                       "errors": [],
-                      "stdout": [],
+                      "stdout": [
+                        {
+                          "text": "[auth.helper] Cleaned up user test-1782921613735@example.com\n"
+                        }
+                      ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-07-01T10:34:20.829Z",
+                      "startTime": "2026-07-01T16:00:53.590Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -280,19 +591,25 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
                       "status": "passed",
-                      "duration": 412,
+                      "duration": 404,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "[auth.helper] Cleaned up user test-1782902003954@example.com\n"
+                          "text": "[auth.helper] Admin created test user test-1782921646002@example.com\n"
+                        },
+                        {
+                          "text": "[auth.helper] Synced test user test-1782921646002@example.com to backend\n"
+                        },
+                        {
+                          "text": "[auth.helper] Cleaned up user test-1782921646002@example.com\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-07-01T10:34:40.439Z",
+                      "startTime": "2026-07-01T16:01:21.972Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -308,15 +625,120 @@
           ]
         }
       ]
+    },
+    {
+      "title": "session.spec.ts",
+      "file": "session.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Session Edge Cases",
+          "file": "session.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Session persists across browser refresh",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 15010,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[auth.helper] Admin created test user session-1782921683362@example.com\n"
+                        },
+                        {
+                          "text": "[auth.helper] Synced test user session-1782921683362@example.com to backend\n"
+                        },
+                        {
+                          "text": "[auth.helper] Cleaned up user session-1782921683362@example.com\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-01T16:01:23.364Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6fa1842ca325e3ffbb00-f9f5b3b45f1f7da1b8b3",
+              "file": "session.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "Invalid token correctly bounces to login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 16283,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[auth.helper] Admin created test user session-1782921687347@example.com\n"
+                        },
+                        {
+                          "text": "[auth.helper] Synced test user session-1782921687347@example.com to backend\n"
+                        },
+                        {
+                          "text": "[auth.helper] Cleaned up user session-1782921687347@example.com\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-01T16:01:27.349Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6fa1842ca325e3ffbb00-3406950327e251a4adef",
+              "file": "session.spec.ts",
+              "line": 33,
+              "column": 7
+            }
+          ]
+        }
+      ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-07-01T10:33:17.790Z",
-    "duration": 84621.63,
-    "expected": 4,
+    "startTime": "2026-07-01T16:00:07.837Z",
+    "duration": 99773.23,
+    "expected": 8,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }

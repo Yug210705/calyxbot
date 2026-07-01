@@ -7,9 +7,9 @@ Usage:
     uvicorn app.main:app --reload --port 8000
 """
 
-import structlog
 from contextlib import asynccontextmanager
 
+import structlog
 from fastapi import APIRouter, FastAPI
 from sqlalchemy import text
 
