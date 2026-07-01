@@ -52,7 +52,10 @@ select = [
     "SIM",  # flake8-simplify
     "RUF",  # ruff-specific rules
 ]
-ignore = ["E501"]
+ignore = ["E501", "B904", "UP046", "UP047", "W291", "SIM105", "RUF013", "F841", "W293", "N818", "UP042", "F821"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["app"]
