@@ -1,0 +1,322 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/e2e/specs/performance.spec.ts",
+      "tests/e2e/specs/security.spec.ts",
+      "--project=chromium",
+      "--workers=1"
+    ],
+    "configFile": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\playwright.config.ts",
+    "rootDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/tests/e2e/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/artifacts/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/tests/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/artifacts/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/tests/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/artifacts/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/tests/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "artifacts/test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "performance.spec.ts",
+      "file": "performance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Performance Baselines",
+          "file": "performance.spec.ts",
+          "line": 9,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Login and /auth/me latency",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 35095,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[auth.helper] Admin created test user perf-1782902004128@example.com\n"
+                        },
+                        {
+                          "text": "[auth.helper] Synced test user perf-1782902004128@example.com to backend\n"
+                        },
+                        {
+                          "text": "[Performance] Login round-trip latency: 12048.36ms\n"
+                        },
+                        {
+                          "text": "[auth.helper] Cleaned up user perf-1782902004128@example.com\n"
+                        }
+                      ],
+                      "stderr": [
+                        {
+                          "text": "⚠️ Latency warning: 12048.36ms exceeds 5000ms\n"
+                        }
+                      ],
+                      "retry": 0,
+                      "startTime": "2026-07-01T10:33:24.170Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b15d6361b2fc38288977-d0ec1d75fbea30f40b2b",
+              "file": "performance.spec.ts",
+              "line": 16,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "security.spec.ts",
+      "file": "security.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Security & Hardening",
+          "file": "security.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Unauthenticated user is bounced from /dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 16940,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[auth.helper] Admin created test user test-1782902003954@example.com\n"
+                        },
+                        {
+                          "text": "[auth.helper] Synced test user test-1782902003954@example.com to backend\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-01T10:34:01.461Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a7e9410bcc1ef00e9656-59d68f5aff4450a18394",
+              "file": "security.spec.ts",
+              "line": 16,
+              "column": 7
+            },
+            {
+              "title": "Authenticated user is bounced from /login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 19503,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-01T10:34:20.829Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a7e9410bcc1ef00e9656-3ade87e87d6527833ce6",
+              "file": "security.spec.ts",
+              "line": 22,
+              "column": 7
+            },
+            {
+              "title": "Backend responses contain baseline security headers",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 412,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[auth.helper] Cleaned up user test-1782902003954@example.com\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-01T10:34:40.439Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a7e9410bcc1ef00e9656-12269945d2f9300f8172",
+              "file": "security.spec.ts",
+              "line": 36,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-01T10:33:17.790Z",
+    "duration": 84621.63,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
