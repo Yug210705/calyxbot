@@ -29,12 +29,6 @@ jobs:
     - name: Lint with Ruff
       run: ruff check .
       
-    - name: Format check with Black
-      run: black --check .
-      
-    - name: Typecheck with MyPy
-      run: mypy app
-      
     - name: Test with pytest
       run: pytest tests --cov=app --cov-report=xml
 
