@@ -1,13 +1,14 @@
 """Organization database models."""
 
-import uuid
 import datetime
+import uuid
 
-from sqlalchemy import String, Boolean, Text, DateTime
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Boolean, DateTime, String
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.models import Base, TimestampMixin
+
 
 class Organization(Base, TimestampMixin):
     __tablename__ = "organizations"

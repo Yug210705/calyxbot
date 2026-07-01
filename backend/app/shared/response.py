@@ -3,7 +3,7 @@
 Utility functions for constructing consistent API response envelopes
 matching the approved response format specification.
 """
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Generic, TypeVar
 
 from pydantic import BaseModel, Field
@@ -36,7 +36,7 @@ def create_error_response(
             code=code,
             message=message,
             request_id=request_id,
-            timestamp=datetime.now(timezone.utc).isoformat(),
+            timestamp=datetime.now(UTC).isoformat(),
             details=details,
         ),
     )
@@ -54,6 +54,6 @@ def create_success_response(
     meta_dict = meta or {}
     if request_id:
         meta_dict["request_id"] = request_id
-    meta_dict["timestamp"] = datetime.now(timezone.utc).isoformat()
+    meta_dict["timestamp"] = datetime.now(UTC).isoformat()
 
     return SuccessResponse(success=True, data=data, meta=meta_dict)

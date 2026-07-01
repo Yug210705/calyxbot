@@ -2,16 +2,20 @@
 
 import uuid
 from typing import Annotated
-import structlog
 
+import structlog
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.security import get_current_user, verify_jwt
 from app.modules.auth.models import User
-from app.modules.auth.schemas import AuthBootstrapResponse, CompleteSignupRequest, UserBase
+from app.modules.auth.schemas import (
+    AuthBootstrapResponse,
+    CompleteSignupRequest,
+    UserBase,
+)
 from app.shared.response import SuccessResponse, create_success_response
 
 logger = structlog.get_logger(__name__)
@@ -30,7 +34,7 @@ async def complete_signup(
     """
     user_id_str = jwt_payload.get("sub")
     email = jwt_payload.get("email")
-    
+
     if not user_id_str or not email:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -38,11 +42,11 @@ async def complete_signup(
         )
 
     user_id = uuid.UUID(user_id_str)
-    
+
     # Check if user already exists
     result = await db.execute(select(User).where(User.id == user_id))
     user = result.scalars().first()
-    
+
     if not user:
         # Create new user in our DB
         user = User(
@@ -62,9 +66,9 @@ async def complete_signup(
 
     # In the future, this is where we would check for pending invitations by email
     # and automatically attach them to an organization.
-    
+
     user_base = UserBase.model_validate(user)
-    
+
     bootstrap_data = AuthBootstrapResponse(
         user=user_base,
         current_organization=None, # No org context at signup yet
@@ -72,7 +76,7 @@ async def complete_signup(
         feature_flags={},
         api_version="v1.0"
     )
-    
+
     return create_success_response(data=bootstrap_data)
 
 
@@ -86,10 +90,10 @@ async def get_me(
     Acts as the frontend bootstrap endpoint.
     """
     user_base = UserBase.model_validate(current_user)
-    
+
     # Determine current organization context (simplified for MVP: just grab the first one, or none)
     # This will be expanded in the Organizations ticket.
-    
+
     bootstrap_data = AuthBootstrapResponse(
         user=user_base,
         current_organization=None,
@@ -97,5 +101,5 @@ async def get_me(
         feature_flags={},
         api_version="v1.0"
     )
-    
+
     return create_success_response(data=bootstrap_data)

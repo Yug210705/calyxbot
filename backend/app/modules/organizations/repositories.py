@@ -1,11 +1,13 @@
 import abc
 import uuid
-from typing import Optional
-from sqlalchemy.ext.asyncio import AsyncSession
+from datetime import UTC
+
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from .models import Organization
+
 
 class OrganizationRepository(abc.ABC):
     @abc.abstractmethod
@@ -14,12 +16,12 @@ class OrganizationRepository(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def get_by_id(self, org_id: uuid.UUID) -> Optional[Organization]:
+    async def get_by_id(self, org_id: uuid.UUID) -> Organization | None:
         """Get an organization by ID."""
         pass
 
     @abc.abstractmethod
-    async def get_by_slug(self, slug: str) -> Optional[Organization]:
+    async def get_by_slug(self, slug: str) -> Organization | None:
         """Get an organization by slug."""
         pass
 
@@ -49,26 +51,26 @@ class SQLAlchemyOrganizationRepository(OrganizationRepository):
             # We'll just re-raise for now and let the service handle it or wrap it.
             raise e
 
-    async def get_by_id(self, org_id: uuid.UUID) -> Optional[Organization]:
+    async def get_by_id(self, org_id: uuid.UUID) -> Organization | None:
         result = await self.session.execute(
             select(Organization).where(Organization.id == org_id, Organization.deleted_at.is_(None))
         )
         return result.scalars().first()
 
-    async def get_by_slug(self, slug: str) -> Optional[Organization]:
+    async def get_by_slug(self, slug: str) -> Organization | None:
         result = await self.session.execute(
             select(Organization).where(Organization.slug == slug, Organization.deleted_at.is_(None))
         )
         return result.scalars().first()
 
     async def delete(self, org_id: uuid.UUID) -> bool:
-        from datetime import datetime, timezone
+        from datetime import datetime
         result = await self.session.execute(
             select(Organization).where(Organization.id == org_id, Organization.deleted_at.is_(None))
         )
         org = result.scalars().first()
         if org:
-            org.deleted_at = datetime.now(timezone.utc)
+            org.deleted_at = datetime.now(UTC)
             await self.session.flush()
             return True
         return False

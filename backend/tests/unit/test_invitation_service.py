@@ -1,18 +1,17 @@
-import pytest
-import uuid
 import hashlib
-from datetime import datetime, timezone, timedelta
+import uuid
+from datetime import UTC, datetime, timedelta
 from unittest.mock import AsyncMock
 
-from app.modules.members.invitation_service import (
-    InvitationService,
-    InvitationError,
-    InvitationExpiredError,
-    InvitationRevokedError,
-    InvitationAlreadyAcceptedError,
-)
+import pytest
+
 from app.modules.members.invitation_models import Invitation
-from app.modules.members.models import Role, Membership
+from app.modules.members.invitation_service import (
+    InvitationExpiredError,
+    InvitationService,
+)
+from app.modules.members.models import Role
+
 
 @pytest.fixture
 def mock_invitation_repo():
@@ -45,9 +44,9 @@ async def test_create_invitation(invitation_service, mock_role_repo, mock_invita
     org_id = uuid.uuid4()
     inviter_id = uuid.uuid4()
     role_id = uuid.uuid4()
-    
+
     mock_role_repo.get_by_name.return_value = Role(id=role_id, name="employee")
-    
+
     # Setup mock to return the same invitation object when create is called
     async def mock_create(invitation):
         return invitation
@@ -78,7 +77,7 @@ async def test_accept_invitation_success(invitation_service, mock_invitation_rep
     token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
     user_id = uuid.uuid4()
     org_id = uuid.uuid4()
-    
+
     invitation = Invitation(
         id=uuid.uuid4(),
         organization_id=org_id,
@@ -87,29 +86,29 @@ async def test_accept_invitation_success(invitation_service, mock_invitation_rep
         status="pending",
         token_hash=token_hash,
         invited_by=uuid.uuid4(),
-        expires_at=datetime.now(timezone.utc) + timedelta(hours=24)
+        expires_at=datetime.now(UTC) + timedelta(hours=24)
     )
-    
+
     mock_invitation_repo.get_by_token.return_value = invitation
     mock_membership_repo.get_by_user_and_org.return_value = None # Not a member yet
-    
+
     async def mock_create_membership(m):
         return m
     mock_membership_repo.create.side_effect = mock_create_membership
-    
+
     membership = await invitation_service.accept_invitation(raw_token, user_id)
-    
+
     assert membership.user_id == user_id
     assert membership.organization_id == org_id
     assert invitation.status == "accepted"
-    
+
     mock_event_bus.publish.assert_called_once()
 
 @pytest.mark.asyncio
 async def test_accept_invitation_expired(invitation_service, mock_invitation_repo):
     raw_token = "some-secure-token"
     token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
-    
+
     invitation = Invitation(
         id=uuid.uuid4(),
         organization_id=uuid.uuid4(),
@@ -118,10 +117,10 @@ async def test_accept_invitation_expired(invitation_service, mock_invitation_rep
         status="pending",
         token_hash=token_hash,
         invited_by=uuid.uuid4(),
-        expires_at=datetime.now(timezone.utc) - timedelta(hours=1) # Expired
+        expires_at=datetime.now(UTC) - timedelta(hours=1) # Expired
     )
-    
+
     mock_invitation_repo.get_by_token.return_value = invitation
-    
+
     with pytest.raises(InvitationExpiredError):
         await invitation_service.accept_invitation(raw_token, uuid.uuid4())

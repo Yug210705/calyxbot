@@ -4,20 +4,20 @@ JWT validation, current user extraction, and permission checking
 dependencies for FastAPI route protection.
 """
 
-from fastapi import Depends, HTTPException, Request, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+import uuid
+from typing import Annotated
+
 import jwt
 import structlog
-from pydantic import ValidationError
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy import select
-from typing import Annotated
-import uuid
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.config import get_settings, Settings
+from app.core.auth_providers import JWKSProvider, SupabaseJWKSProvider
+from app.core.config import Settings, get_settings
 from app.core.database import get_db
 from app.modules.auth.models import User
-from app.core.auth_providers import JWKSProvider, SupabaseJWKSProvider
 
 logger = structlog.get_logger(__name__)
 
@@ -70,7 +70,7 @@ async def get_current_user(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token payload",
         )
-        
+
     try:
         user_id = uuid.UUID(user_id_str)
     except ValueError:
@@ -82,17 +82,17 @@ async def get_current_user(
     # Fetch user from database
     result = await db.execute(select(User).where(User.id == user_id))
     user = result.scalars().first()
-    
+
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="User not found in application database",
         )
-        
+
     if not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="User account is deactivated",
         )
-        
+
     return user

@@ -1,10 +1,9 @@
-import pytest
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from app.main import app
 from app.core.exceptions import CalyxException
-from app.shared.response import create_success_response, SuccessResponse
+from app.main import app
+from app.shared.response import create_success_response
+
 
 # Add a couple of test endpoints to the app for observability testing
 @app.get("/test/success")
@@ -30,7 +29,7 @@ def test_request_id_generation_and_propagation():
     """Test that a Request ID is generated and returned in headers."""
     response = client.get("/test/success")
     assert response.status_code == 200
-    
+
     # Header should be present
     request_id = response.headers.get("X-Request-ID")
     assert request_id is not None
@@ -48,7 +47,7 @@ def test_success_response_schema():
     """Test the unified success response format."""
     response = client.get("/test/success")
     data = response.json()
-    
+
     assert data["success"] is True
     assert data["data"] == {"message": "ok"}
     assert "meta" in data
@@ -58,11 +57,11 @@ def test_calyx_exception_response_format():
     """Test the unified error response format for CalyxExceptions."""
     response = client.get("/test/calyx-error")
     assert response.status_code == 400
-    
+
     data = response.json()
     assert data["success"] is False
     assert "error" in data
-    
+
     error_detail = data["error"]
     assert error_detail["code"] == "TEST_ERROR"
     assert error_detail["message"] == "A test exception occurred"
@@ -74,11 +73,11 @@ def test_unhandled_exception_response_format():
     """Test the unified error response format for unhandled exceptions."""
     response = client.get("/test/unhandled-error")
     assert response.status_code == 500
-    
+
     data = response.json()
     assert data["success"] is False
     assert "error" in data
-    
+
     error_detail = data["error"]
     assert error_detail["code"] == "INTERNAL_SERVER_ERROR"
     assert error_detail["message"] == "An unexpected error occurred."

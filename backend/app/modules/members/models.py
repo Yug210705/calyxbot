@@ -1,20 +1,21 @@
 """Members and roles database models."""
 
-import uuid
 import datetime
+import uuid
 
-from sqlalchemy import String, DateTime, ForeignKey, UniqueConstraint
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import DateTime, ForeignKey, String, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.models import Base, TimestampMixin
+
 
 class Role(Base):
     __tablename__ = "roles"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(String(50), unique=True, nullable=False)
-    
+
     permissions: Mapped[list["Permission"]] = relationship(
         "Permission",
         secondary="role_permissions",

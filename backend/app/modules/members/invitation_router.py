@@ -1,32 +1,28 @@
-import uuid
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.dependencies import get_db
 from app.core.security import get_current_user
-from app.shared.events import event_bus
-from app.shared.response import create_success_response, create_error_response, SuccessResponse
 from app.modules.auth.models import User
+from app.modules.members.invitation_service import (
+    InvitationAlreadyAcceptedError,
+    InvitationError,
+    InvitationExpiredError,
+    InvitationRevokedError,
+    InvitationService,
+)
 from app.modules.members.repositories import (
     SQLAlchemyInvitationRepository,
     SQLAlchemyMembershipRepository,
     SQLAlchemyRoleRepository,
 )
-from app.modules.members.invitation_service import (
-    InvitationService,
-    InvitationError,
-    InvitationExpiredError,
-    InvitationRevokedError,
-    InvitationAlreadyAcceptedError,
-)
-from app.modules.members.invitation_schemas import (
-    InvitationCreate,
-    InvitationResponse,
-    InvitationWithToken,
-    InvitationAccept,
-)
 from app.modules.members.schemas import MembershipResponse
-
+from app.shared.events import event_bus
+from app.shared.response import (
+    SuccessResponse,
+    create_error_response,
+    create_success_response,
+)
 
 router = APIRouter(prefix="/invitations", tags=["Invitations"])
 
@@ -51,13 +47,13 @@ async def accept_invitation(
     """
     try:
         membership = await service.accept_invitation(token, user.id)
-        
+
         # We need to explicitly commit because accept_invitation modifies multiple records
         # and doesn't call commit internally for the invitation status update yet (it relies on the session)
         await db.commit()
 
         return create_success_response(data=MembershipResponse.model_validate(membership))
-        
+
     except InvitationAlreadyAcceptedError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -90,7 +86,7 @@ async def accept_invitation(
                 message=str(e)
             ).model_dump()
         )
-    except Exception as e:
+    except Exception:
         await db.rollback()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

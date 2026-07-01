@@ -75,5 +75,5 @@ def increment_counter(metric_name: str, value: int = 1, tags: dict = None) -> No
     }
     if tags:
         event_dict.update(tags)
-        
+
     logger.info("metric", **event_dict)

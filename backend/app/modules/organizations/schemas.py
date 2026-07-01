@@ -1,8 +1,8 @@
 from datetime import datetime
-from typing import Optional
 from uuid import UUID
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
+
 
 class OrganizationCreate(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
@@ -12,7 +12,7 @@ class OrganizationResponse(BaseModel):
     id: UUID
     name: str
     slug: str
-    logo_url: Optional[str] = None
+    logo_url: str | None = None
     plan: str
     status: str
     created_by: UUID

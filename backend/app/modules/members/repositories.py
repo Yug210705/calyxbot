@@ -1,6 +1,9 @@
 import abc
+
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from .models import Membership, Role
+
 
 class MembershipRepository(abc.ABC):
     @abc.abstractmethod
@@ -29,7 +32,7 @@ class SQLAlchemyMembershipRepository(MembershipRepository):
         from sqlalchemy import select
         result = await self.session.execute(
             select(Membership).where(
-                Membership.user_id == user_id, 
+                Membership.user_id == user_id,
                 Membership.organization_id == org_id,
                 Membership.deleted_at.is_(None)
             )
@@ -38,6 +41,7 @@ class SQLAlchemyMembershipRepository(MembershipRepository):
 
     async def list_by_organization(self, org_id: str, limit: int = 50, offset: int = 0) -> list[Membership]:
         from sqlalchemy import select
+
         # In a real app we'd join with User to get emails/names. For MVP, we can lazy load or explicit join.
         from sqlalchemy.orm import joinedload
         result = await self.session.execute(
@@ -60,7 +64,7 @@ class RoleRepository(abc.ABC):
 class SQLAlchemyRoleRepository(RoleRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
-        
+
     async def get_by_name(self, name: str) -> Role:
         from sqlalchemy import select
         result = await self.session.execute(select(Role).where(Role.name == name))
@@ -90,6 +94,7 @@ class SQLAlchemyInvitationRepository(InvitationRepository):
 
     async def get_by_token(self, token_hash: str) -> 'Invitation | None':
         from sqlalchemy import select
+
         from app.modules.members.invitation_models import Invitation
         result = await self.session.execute(
             select(Invitation).where(

@@ -7,26 +7,21 @@ Usage:
     uvicorn app.main:app --reload --port 8000
 """
 
-from contextlib import asynccontextmanager
 import logging
+from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, APIRouter
+from fastapi import APIRouter, FastAPI
 from sqlalchemy import text
 
-from app.core.database import engine
 from app.core.config import get_settings
+from app.core.database import engine
+from app.core.exceptions import register_exception_handlers
 from app.core.logging import setup_logging
 from app.core.middleware import RequestIDAndLoggingMiddleware
-from app.shared.events import event_bus
 from app.modules.audit.services import AuditLogService
-from app.core.exceptions import register_exception_handlers
 
 # Ensure all models are imported so SQLAlchemy metadata is fully populated
-from app.modules.auth.models import User
-from app.modules.organizations.models import Organization
-from app.modules.members.models import Membership, Role, Permission, RolePermission
-from app.modules.members.invitation_models import Invitation
-from app.modules.audit.models import AuditLog
+from app.shared.events import event_bus
 
 # Setup logging immediately so everything during startup uses structlog
 setup_logging("INFO")
@@ -48,11 +43,11 @@ async def lifespan(app: FastAPI):
     # Setup structured logging
     setup_logging(log_level=settings.LOG_LEVEL)
     logger.info("Starting Calyx API...", env=settings.APP_ENV)
-    
+
     # Initialize background services
     audit_service = AuditLogService(event_bus)
     audit_service.setup_subscriptions()
-    
+
     try:
         async with engine.begin() as conn:
             await conn.execute(text("SELECT 1"))
@@ -60,9 +55,9 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.critical(f"Failed to connect to the database: {e}")
         raise RuntimeError("Database connection failed on startup") from e
-    
+
     yield
-    
+
     logger.info("Shutting down Calyx API...")
     await engine.dispose()
 
@@ -111,14 +106,14 @@ def _register_routes(app: FastAPI) -> None:
     Modules should expose their own APIRouters.
     """
     from app.modules.auth.routes import router as auth_router
-    from app.modules.organizations.router import router as org_router
     from app.modules.members.invitation_router import router as invitation_router
+    from app.modules.organizations.router import router as org_router
 
     api_router = APIRouter(prefix="/api/v1")
     api_router.include_router(auth_router)
     api_router.include_router(org_router)
     api_router.include_router(invitation_router)
-    
+
     app.include_router(api_router)
 
     @app.get(

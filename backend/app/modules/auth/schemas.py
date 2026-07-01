@@ -1,7 +1,7 @@
 """Authentication schemas."""
 
 import uuid
-from typing import Optional, Any
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -9,7 +9,7 @@ class OrganizationBase(BaseModel):
     id: uuid.UUID
     name: str
     slug: str
-    
+
     class Config:
         from_attributes = True
 

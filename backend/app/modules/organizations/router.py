@@ -1,19 +1,32 @@
 import uuid
 from typing import Annotated
+
 from fastapi import APIRouter, Depends, Header, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.dependencies import get_db
 from app.core.security import get_current_user
-from app.shared.events import event_bus
-from app.shared.response import create_success_response, create_error_response, SuccessResponse
 from app.modules.auth.models import User
-from app.modules.members.repositories import SQLAlchemyMembershipRepository, SQLAlchemyRoleRepository, SQLAlchemyInvitationRepository
-from app.modules.members.services import MembershipService
+from app.modules.members.invitation_schemas import (
+    InvitationCreate,
+    InvitationResponse,
+    InvitationWithToken,
+)
 from app.modules.members.invitation_service import InvitationService
-from app.modules.members.schemas import PaginatedMembershipResponse, MembershipResponse
-from app.modules.members.invitation_schemas import InvitationCreate, InvitationWithToken, InvitationResponse
-from .models import Organization
+from app.modules.members.repositories import (
+    SQLAlchemyInvitationRepository,
+    SQLAlchemyMembershipRepository,
+    SQLAlchemyRoleRepository,
+)
+from app.modules.members.schemas import MembershipResponse, PaginatedMembershipResponse
+from app.modules.members.services import MembershipService
+from app.shared.events import event_bus
+from app.shared.response import (
+    SuccessResponse,
+    create_error_response,
+    create_success_response,
+)
+
 from .repositories import SQLAlchemyOrganizationRepository
 from .schemas import OrganizationCreate, OrganizationResponse
 from .services import OrganizationService
@@ -34,7 +47,7 @@ async def create_organization(
     service: OrganizationService = Depends(get_organization_service),
     idempotency_key: Annotated[str | None, Header()] = None
 ):
-    # Note: A real implementation for idempotency_key would check Redis or a DB table 
+    # Note: A real implementation for idempotency_key would check Redis or a DB table
     # to see if this key has already been processed for this user/endpoint.
     # For MVP, we pass it but rely on the unique slug constraint as the primary idempotency fallback.
 
@@ -45,7 +58,7 @@ async def create_organization(
             meta={"idempotency_key": idempotency_key} if idempotency_key else None
         )
     except ValueError as e:
-        # Returning a proper FastAPI exception or returning the error payload directly. 
+        # Returning a proper FastAPI exception or returning the error payload directly.
         # But if response_model is dict, returning Pydantic model directly might require model_dump.
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -54,7 +67,7 @@ async def create_organization(
                 message=str(e),
             ).model_dump()
         )
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=create_error_response(
@@ -119,7 +132,7 @@ async def create_organization_invitation(
                 message=str(e),
             ).model_dump()
         )
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=create_error_response(
@@ -148,9 +161,9 @@ async def get_organization_members(
                     message="You do not have permission to view members of this organization."
                 ).model_dump()
             )
-            
+
         members = await service.get_organization_members(org_id, limit, offset)
-        
+
         return create_success_response(
             data=PaginatedMembershipResponse(
                 items=[MembershipResponse.model_validate(m) for m in members],
@@ -161,7 +174,7 @@ async def get_organization_members(
         )
     except HTTPException:
         raise
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=create_error_response(

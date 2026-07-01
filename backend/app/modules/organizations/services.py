@@ -1,14 +1,16 @@
 import uuid
-from typing import Optional
 from dataclasses import dataclass
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.shared.events import EventBus, DomainEvent
-from app.modules.members.repositories import MembershipRepository, RoleRepository
+
 from app.modules.members.models import Membership
+from app.modules.members.repositories import MembershipRepository, RoleRepository
+from app.shared.events import DomainEvent, EventBus
+
 from .models import Organization
 from .repositories import OrganizationRepository
 from .schemas import OrganizationCreate
+
 
 @dataclass
 class OrganizationCreatedEvent(DomainEvent):
@@ -55,7 +57,7 @@ class OrganizationService:
             status="ACTIVE"
         )
         await self.membership_repo.create(membership)
-        
+
         # Commit the transaction to persist all changes
         await self.session.commit()
 

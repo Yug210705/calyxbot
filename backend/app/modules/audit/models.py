@@ -1,13 +1,14 @@
 """Audit log database models."""
 
-import uuid
 import datetime
+import uuid
 
-from sqlalchemy import String, DateTime, ForeignKey, JSON
+from sqlalchemy import DateTime, ForeignKey, String
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.dialects.postgresql import UUID, JSONB
 
 from app.core.models import Base
+
 
 class AuditLog(Base):
     __tablename__ = "audit_logs"

@@ -1,15 +1,15 @@
 """Audit log service to capture domain events."""
 
 import uuid
-from typing import Any, Dict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+
 import structlog
 
-from app.shared.events import EventBus, DomainEvent
 from app.core.database import AsyncSessionLocal
-from app.core.logging import request_id_var, correlation_id_var
+from app.core.logging import correlation_id_var, request_id_var
 from app.modules.audit.models import AuditLog
 from app.modules.audit.repositories import SQLAlchemyAuditLogRepository
+from app.shared.events import DomainEvent, EventBus
 
 logger = structlog.get_logger(__name__)
 
@@ -30,16 +30,16 @@ class AuditLogService:
         try:
             req_id = request_id_var.get()
             corr_id = correlation_id_var.get()
-            
+
             payload = event.payload
-            
+
             organization_id_str = payload.get("organization_id")
             if not organization_id_str:
                 logger.error("Domain event missing organization_id", domain_event=event.name)
                 return
-                
+
             organization_id = uuid.UUID(organization_id_str)
-            
+
             # Determine actor. If not present in payload, we might need a contextvar.
             # Usually events contain the actor id (created_by, inviter_id, user_id).
             actor_id_str = payload.get("created_by") or payload.get("inviter_id") or payload.get("user_id")
@@ -50,7 +50,7 @@ class AuditLogService:
                 actor_id = uuid.UUID(int=0)
             else:
                 actor_id = uuid.UUID(actor_id_str)
-                
+
             # Determine resource.
             resource_type = event.name.split(".")[0]
             resource_id_str = payload.get(f"{resource_type}_id")
@@ -69,7 +69,7 @@ class AuditLogService:
                 resource_id=resource_id,
                 before=None,
                 after=payload,
-                created_at=datetime.now(timezone.utc),
+                created_at=datetime.now(UTC),
                 ip_address=None, # In a real app, this comes from a contextvar set in middleware
                 user_agent=None, # Same here
                 request_id=req_id if req_id else None,
@@ -80,7 +80,7 @@ class AuditLogService:
                 repo = SQLAlchemyAuditLogRepository(session)
                 await repo.create(audit_log)
                 await session.commit()
-                
+
             logger.debug("Audit log created", domain_event=event.name, corr_id=corr_id)
 
         except Exception as e:

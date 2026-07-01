@@ -1,19 +1,13 @@
 import asyncio
 from logging.config import fileConfig
 
+from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from alembic import context
-
 from app.core.config import get_settings
 from app.core.models import Base
-from app.modules.auth.models import User
-from app.modules.organizations.models import Organization
-from app.modules.members.models import Membership, Role, Permission, RolePermission
-from app.modules.members.invitation_models import Invitation
-from app.modules.audit.models import AuditLog
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

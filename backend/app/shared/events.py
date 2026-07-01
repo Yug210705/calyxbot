@@ -1,15 +1,16 @@
 import abc
-import structlog
-import asyncio
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
-from typing import Callable, Awaitable, Any, Dict
+from typing import Any
+
+import structlog
 
 logger = structlog.get_logger(__name__)
 
 @dataclass
 class DomainEvent:
     name: str
-    payload: Dict[str, Any]
+    payload: dict[str, Any]
 
 class EventBus(abc.ABC):
     @abc.abstractmethod
@@ -22,7 +23,7 @@ class EventBus(abc.ABC):
 
 class InProcessEventBus(EventBus):
     def __init__(self):
-        self._handlers: Dict[str, list[Callable[[DomainEvent], Awaitable[None]]]] = {}
+        self._handlers: dict[str, list[Callable[[DomainEvent], Awaitable[None]]]] = {}
 
     async def publish(self, event: DomainEvent) -> None:
         handlers = self._handlers.get(event.name, [])
@@ -33,9 +34,9 @@ class InProcessEventBus(EventBus):
                 await handler(event)
             except Exception as e:
                 logger.exception(
-                    "Event handler failed", 
-                    event_name=event.name, 
-                    handler=handler.__name__, 
+                    "Event handler failed",
+                    event_name=event.name,
+                    handler=handler.__name__,
                     error=str(e)
                 )
 

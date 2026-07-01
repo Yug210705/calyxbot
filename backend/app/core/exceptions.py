@@ -7,8 +7,8 @@ import structlog
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from app.shared.response import create_error_response
 from app.core.logging import request_id_var
+from app.shared.response import create_error_response
 
 logger = structlog.get_logger(__name__)
 

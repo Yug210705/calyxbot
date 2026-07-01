@@ -1,21 +1,21 @@
 """Invitation service — handles invite creation, acceptance, revocation."""
 
-import uuid
 import hashlib
 import secrets
-from datetime import datetime, timezone, timedelta
+import uuid
+from dataclasses import dataclass
+from datetime import UTC, datetime, timedelta
 
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.modules.members.invitation_models import Invitation
+from app.modules.members.models import Membership
 from app.modules.members.repositories import (
     InvitationRepository,
     MembershipRepository,
     RoleRepository,
 )
-from app.modules.members.invitation_models import Invitation
-from app.modules.members.models import Membership
-from app.shared.events import EventBus, DomainEvent
-from dataclasses import dataclass
-from sqlalchemy.ext.asyncio import AsyncSession
-
+from app.shared.events import DomainEvent, EventBus
 
 INVITATION_EXPIRY_HOURS = 72
 
@@ -80,7 +80,7 @@ class InvitationService:
         raw_token = secrets.token_urlsafe(48)
         token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
 
-        expires_at = datetime.now(timezone.utc) + timedelta(hours=INVITATION_EXPIRY_HOURS)
+        expires_at = datetime.now(UTC) + timedelta(hours=INVITATION_EXPIRY_HOURS)
 
         invitation = Invitation(
             id=uuid.uuid4(),
@@ -134,7 +134,7 @@ class InvitationService:
         if invitation.status == "revoked":
             raise InvitationRevokedError("This invitation has been revoked.")
 
-        if invitation.expires_at < datetime.now(timezone.utc):
+        if invitation.expires_at < datetime.now(UTC):
             raise InvitationExpiredError("This invitation has expired.")
 
         # Check if user is already a member
@@ -156,8 +156,8 @@ class InvitationService:
 
         # Update invitation status
         invitation.status = "accepted"
-        invitation.accepted_at = datetime.now(timezone.utc)
-        
+        invitation.accepted_at = datetime.now(UTC)
+
         # Commit transaction
         await self.session.commit()
 

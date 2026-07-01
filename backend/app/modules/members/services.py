@@ -1,6 +1,8 @@
 import uuid
-from app.modules.members.repositories import MembershipRepository, RoleRepository
+
 from app.modules.members.models import Membership
+from app.modules.members.repositories import MembershipRepository, RoleRepository
+
 
 class MembershipService:
     def __init__(
@@ -25,9 +27,9 @@ class MembershipService:
         # as configured in the Membership model.
         if not membership.role:
             return False
-            
+
         for perm in membership.role.permissions:
             if perm.permission == required_permission:
                 return True
-                
+
         return False

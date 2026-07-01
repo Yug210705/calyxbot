@@ -11,7 +11,7 @@ import structlog
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
-from app.core.logging import request_id_var, correlation_id_var
+from app.core.logging import correlation_id_var, request_id_var
 
 logger = structlog.get_logger(__name__)
 
@@ -25,7 +25,7 @@ class RequestIDAndLoggingMiddleware(BaseHTTPMiddleware):
         # Extract or generate Request ID and Correlation ID
         req_id = request.headers.get("X-Request-ID", str(uuid.uuid4()))
         corr_id = request.headers.get("X-Correlation-ID", str(uuid.uuid4()))
-        
+
         # Set the context variables
         token_req = request_id_var.set(req_id)
         token_corr = correlation_id_var.set(corr_id)
@@ -42,12 +42,12 @@ class RequestIDAndLoggingMiddleware(BaseHTTPMiddleware):
 
         try:
             response = await call_next(request)
-            
+
             # Attach X-Request-ID to the response
             response.headers["X-Request-ID"] = req_id
-            
+
             duration_ms = (time.perf_counter() - start_time) * 1000
-            
+
             logger.info(
                 "Request completed",
                 endpoint=request.url.path,
@@ -55,9 +55,9 @@ class RequestIDAndLoggingMiddleware(BaseHTTPMiddleware):
                 status_code=response.status_code,
                 duration_ms=round(duration_ms, 2),
             )
-            
+
             return response
-            
+
         except Exception as e:
             duration_ms = (time.perf_counter() - start_time) * 1000
             logger.exception(
