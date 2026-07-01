@@ -7,7 +7,7 @@ Usage:
     uvicorn app.main:app --reload --port 8000
 """
 
-import logging
+import structlog
 from contextlib import asynccontextmanager
 
 from fastapi import APIRouter, FastAPI
@@ -26,7 +26,7 @@ from app.shared.events import event_bus
 # Setup logging immediately so everything during startup uses structlog
 setup_logging("INFO")
 
-logger = logging.getLogger(__name__)
+logger = structlog.get_logger(__name__)
 settings = get_settings()
 
 APP_TITLE = "Calyx API"
