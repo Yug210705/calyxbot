@@ -1,6 +1,6 @@
-import { expect, Response } from '@playwright/test';
+import { expect, Response, APIResponse } from '@playwright/test';
 
-export async function assertSuccessEnvelope(response: Response) {
+export async function assertSuccessEnvelope(response: Response | APIResponse) {
   expect(response.status()).toBe(200);
   const body = await response.json();
   expect(body).toHaveProperty('success', true);
@@ -8,7 +8,7 @@ export async function assertSuccessEnvelope(response: Response) {
   return body.data;
 }
 
-export async function assertErrorEnvelope(response: Response, expectedStatus: number = 400) {
+export async function assertErrorEnvelope(response: Response | APIResponse, expectedStatus: number = 400) {
   expect(response.status()).toBe(expectedStatus);
   const body = await response.json();
   expect(body).toHaveProperty('success', false);
@@ -19,13 +19,13 @@ export async function assertErrorEnvelope(response: Response, expectedStatus: nu
   return body.error;
 }
 
-export function assertRequestId(response: Response) {
+export function assertRequestId(response: Response | APIResponse) {
   const requestId = response.headers()['x-request-id'];
   expect(requestId).toBeTruthy();
   expect(typeof requestId).toBe('string');
 }
 
-export function assertSecurityHeaders(response: Response) {
+export function assertSecurityHeaders(response: Response | APIResponse) {
   const headers = response.headers();
   // Basic security headers that might be set by Next.js or the backend
   if (headers['x-frame-options']) {
