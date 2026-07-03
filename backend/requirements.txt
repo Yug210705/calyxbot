@@ -8,3 +8,5 @@ asyncpg>=0.29.0
 alembic>=1.13.0
 structlog>=24.0.0
 pyjwt[crypto]>=2.8.0
+pgvector>=0.2.1
+tiktoken>=0.7.0
