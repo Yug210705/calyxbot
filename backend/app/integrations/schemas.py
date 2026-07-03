@@ -1,0 +1,51 @@
+from datetime import datetime
+from uuid import UUID
+from pydantic import BaseModel
+from typing import Optional
+from dataclasses import dataclass
+
+class IntegrationProviderResponse(BaseModel):
+    provider: str
+    name: str
+    supports_incremental_sync: bool
+    supports_binary_files: bool
+    supports_webhooks: bool
+
+class IntegrationConnectionResponse(BaseModel):
+    id: UUID
+    provider: str
+    display_name: str
+    status: str
+    health: str
+    connected_at: Optional[datetime]
+    last_sync_at: Optional[datetime]
+    document_count: int
+    sync_state: Optional[str]
+
+class SyncJobResponse(BaseModel):
+    id: UUID
+    integration_id: UUID
+    provider: str
+    status: str
+    documents_found: int
+    documents_changed: int
+    documents_skipped: int
+    documents_failed: int
+    bytes_processed: int
+    duration_ms: int
+    error_message: Optional[str]
+    created_at: datetime
+    started_at: Optional[datetime]
+    finished_at: Optional[datetime]
+
+@dataclass
+class SyncDocumentResult:
+    documents_found: int = 0
+    documents_changed: int = 0
+    documents_unchanged: int = 0
+    documents_deleted: int = 0
+    documents_skipped: int = 0
+    documents_failed: int = 0
+    bytes_processed: int = 0
+
+

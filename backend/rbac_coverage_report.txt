@@ -2,98 +2,98 @@ RBAC Permission Coverage Report
 ===============================
 
 Role: owner
-  - invitation.revoke: YES
-  - membership.remove: YES
-  - invitation.read: YES
-  - membership.read: YES
-  - organization.billing: YES
-  - organization.update: YES
-  - memory.delete: YES
-  - memory.read: YES
   - audit.read: YES
-  - memory.create: YES
   - organization.settings: YES
-  - membership.update: YES
-  - organization.delete: YES
+  - invitation.read: YES
+  - memory.create: YES
+  - memory.delete: YES
   - invitation.create: YES
+  - organization.billing: YES
+  - invitation.revoke: YES
+  - organization.update: YES
+  - membership.update: YES
+  - memory.read: YES
+  - membership.remove: YES
+  - organization.delete: YES
+  - membership.read: YES
 
 Role: admin
-  - invitation.revoke: YES
-  - membership.remove: YES
-  - invitation.read: YES
-  - membership.read: YES
-  - organization.billing: YES
-  - organization.update: YES
-  - memory.delete: YES
-  - memory.read: YES
   - audit.read: YES
-  - memory.create: YES
   - organization.settings: YES
-  - membership.update: YES
-  - organization.delete: NO
+  - invitation.read: YES
+  - memory.create: YES
+  - memory.delete: YES
   - invitation.create: YES
+  - organization.billing: YES
+  - invitation.revoke: YES
+  - organization.update: YES
+  - membership.update: YES
+  - memory.read: YES
+  - membership.remove: YES
+  - organization.delete: NO
+  - membership.read: YES
 
 Role: manager
-  - invitation.revoke: YES
-  - membership.remove: NO
-  - invitation.read: YES
-  - membership.read: YES
-  - organization.billing: NO
-  - organization.update: NO
-  - memory.delete: YES
-  - memory.read: YES
   - audit.read: NO
-  - memory.create: YES
   - organization.settings: YES
-  - membership.update: YES
-  - organization.delete: NO
+  - invitation.read: YES
+  - memory.create: YES
+  - memory.delete: YES
   - invitation.create: YES
+  - organization.billing: NO
+  - invitation.revoke: YES
+  - organization.update: NO
+  - membership.update: YES
+  - memory.read: YES
+  - membership.remove: NO
+  - organization.delete: NO
+  - membership.read: YES
 
 Role: billing_admin
-  - invitation.revoke: NO
-  - membership.remove: NO
-  - invitation.read: NO
-  - membership.read: YES
-  - organization.billing: YES
-  - organization.update: NO
-  - memory.delete: NO
-  - memory.read: NO
   - audit.read: NO
-  - memory.create: NO
   - organization.settings: NO
-  - membership.update: NO
-  - organization.delete: NO
+  - invitation.read: NO
+  - memory.create: NO
+  - memory.delete: NO
   - invitation.create: NO
+  - organization.billing: YES
+  - invitation.revoke: NO
+  - organization.update: NO
+  - membership.update: NO
+  - memory.read: NO
+  - membership.remove: NO
+  - organization.delete: NO
+  - membership.read: YES
 
 Role: employee
-  - invitation.revoke: NO
-  - membership.remove: NO
-  - invitation.read: YES
-  - membership.read: YES
-  - organization.billing: NO
-  - organization.update: NO
-  - memory.delete: NO
-  - memory.read: YES
   - audit.read: NO
-  - memory.create: YES
   - organization.settings: NO
-  - membership.update: NO
-  - organization.delete: NO
+  - invitation.read: YES
+  - memory.create: YES
+  - memory.delete: NO
   - invitation.create: NO
+  - organization.billing: NO
+  - invitation.revoke: NO
+  - organization.update: NO
+  - membership.update: NO
+  - memory.read: YES
+  - membership.remove: NO
+  - organization.delete: NO
+  - membership.read: YES
 
 Role: viewer
-  - invitation.revoke: NO
-  - membership.remove: NO
-  - invitation.read: YES
-  - membership.read: YES
-  - organization.billing: NO
-  - organization.update: NO
-  - memory.delete: NO
-  - memory.read: YES
   - audit.read: YES
-  - memory.create: NO
   - organization.settings: NO
-  - membership.update: NO
-  - organization.delete: NO
+  - invitation.read: YES
+  - memory.create: NO
+  - memory.delete: NO
   - invitation.create: NO
+  - organization.billing: NO
+  - invitation.revoke: NO
+  - organization.update: NO
+  - membership.update: NO
+  - memory.read: YES
+  - membership.remove: NO
+  - organization.delete: NO
+  - membership.read: YES
 

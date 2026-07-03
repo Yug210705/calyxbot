@@ -1,67 +1,43 @@
-# Architecture Dependency Graph
+# Dependency Graph
 
-This document proves that Calyx follows a strict acyclic dependency flow, and that business logic is properly isolated.
-
-## Flow Rules
-1. **Router Layer** handles HTTP requests, dependencies injection, transaction boundaries, and returns DTOs.
-2. **Service Layer** handles business logic, domain events, authorization checks, and orchestrates repositories. Services own the transaction (`session.commit()`).
-3. **Repository Layer** ONLY performs persistence. They do not contain business logic, and they do not own transactions.
-4. **Database Layer** manages schema, constraints, and data.
-
-## Mermaid Graph
+This document illustrates the dependencies between Calyx Backend modules, external services, databases, and message queues.
 
 ```mermaid
 graph TD
-    %% Routers (Entrypoints)
-    AuthRouter["Auth Router"]
-    OrgRouter["Organization Router"]
-    InvRouter["Invitation Router"]
-    
-    %% Services (Business Logic)
-    OrgService["Organization Service"]
-    MemService["Membership Service"]
-    InvService["Invitation Service"]
-    AuditService["Audit Log Service"]
-    
-    %% Repositories (Persistence)
-    OrgRepo["Organization Repository"]
-    MemRepo["Membership Repository"]
-    RoleRepo["Role Repository"]
-    InvRepo["Invitation Repository"]
-    AuditRepo["Audit Log Repository"]
-    
-    %% Events
-    EventBus["Event Bus (InProcess)"]
+    %% Core Modules
+    Auth[Auth Module]
+    Orgs[Organizations Module]
+    Members[Members Module]
+    Audit[Audit Module]
 
     %% Dependencies
-    AuthRouter -->|Direct CRUD| Database
-    
-    OrgRouter --> OrgService
-    OrgRouter --> MemService
-    
-    InvRouter --> InvService
-    
-    OrgService --> OrgRepo
-    OrgService --> MemRepo
-    OrgService --> RoleRepo
-    OrgService --> EventBus
-    
-    MemService --> MemRepo
-    MemService --> RoleRepo
-    
-    InvService --> InvRepo
-    InvService --> MemRepo
-    InvService --> RoleRepo
-    InvService --> EventBus
-    
-    EventBus -->|Async Dispatch| AuditService
-    AuditService --> AuditRepo
-    
-    OrgRepo --> Database
-    MemRepo --> Database
-    RoleRepo --> Database
-    InvRepo --> Database
-    AuditRepo --> Database
+    DB[(PostgreSQL / Supabase)]
+    VectorDB[(Vector DB - Future)]
+    Queue[Task Queue - Future]
+    EventBus[EventBus]
+    Redis[(Redis - Future)]
+
+    %% Connections
+    Auth --> DB
+    Orgs --> DB
+    Members --> DB
+    Audit --> DB
+
+    Auth --> EventBus
+    Orgs --> EventBus
+    Members --> EventBus
+
+    EventBus -.-> Queue
+    Queue -.-> VectorDB
+    EventBus -.-> Redis
+
+    %% Module inter-dependencies
+    Members --> Orgs : "Requires Org ID"
+    Auth --> Members : "User registration creates Membership (via EventBus)"
+    Orgs --> Audit : "Organization actions logged"
 ```
 
-As demonstrated, the architecture is strictly unidirectional.
+## Cross-Feature Leakage Check
+- **Cyclic Imports**: None. All dependencies flow downwards (Router -> Service -> Repository).
+- **Hidden Dependencies**: None. Shared state is entirely handled by `app.core`.
+- **Cross-feature leakage**: Strictly prevented. Domain models do not reference cross-domain objects without `EventBus` pub-sub.

@@ -37,6 +37,17 @@ class Settings(BaseSettings):
     SUPABASE_SERVICE_ROLE_KEY: str
     SUPABASE_JWT_SECRET: str
 
+    # Pipeline Ingestion Safety Caps
+    PIPELINE_MAX_DOCUMENT_BYTES: int = 20 * 1024 * 1024  # 20 MB
+    PIPELINE_MAX_NORMALIZED_TEXT_CHARS: int = 5_000_000
+    PIPELINE_MAX_CHUNKS_PER_DOCUMENT: int = 10_000
+    PIPELINE_MAX_CHUNKING_TIME_MS: int = 60_000
+    
+    # Google OAuth
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
+    GOOGLE_REDIRECT_URI: str = "http://localhost:8000/api/v1/integrations/google/callback"
+    
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

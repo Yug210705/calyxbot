@@ -4,7 +4,10 @@
       "C:\\Program Files\\nodejs\\node.exe",
       "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\node_modules\\@playwright\\test\\cli.js",
       "test",
-      "--project=chromium"
+      "tests/e2e/specs/dashboard.spec.ts",
+      "tests/e2e/specs/integrations.spec.ts",
+      "tests/e2e/specs/documents.spec.ts",
+      "tests/e2e/specs/search.spec.ts"
     ],
     "configFile": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\playwright.config.ts",
     "rootDir": "C:/Users/Yug Pathak/Desktop/calyxbot.ai/frontend/tests/e2e/specs",
@@ -103,642 +106,926 @@
     "workers": 2,
     "webServer": {
       "command": "npm run dev",
-      "url": "https://calyxbot.vercel.app/",
+      "url": "http://localhost:3000",
       "reuseExistingServer": true
     }
   },
   "suites": [
     {
-      "title": "api-contract.spec.ts",
-      "file": "api-contract.spec.ts",
+      "title": "dashboard.spec.ts",
+      "file": "dashboard.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [],
-      "suites": [
+      "specs": [
         {
-          "title": "Unified API Contract",
-          "file": "api-contract.spec.ts",
-          "line": 8,
-          "column": 6,
-          "specs": [
+          "title": "dashboard page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
             {
-              "title": "Backend returns unified format on /auth/me",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 55490,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 10092,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[auth.helper] Admin created test user api-1782921614245@example.com\n"
-                        },
-                        {
-                          "text": "[auth.helper] Synced test user api-1782921614245@example.com to backend\n"
-                        },
-                        {
-                          "text": "Auth Response: {\n  access_token: \u001b[32m'eyJhbGciOiJFUzI1NiIsImtpZCI6Ijc3MTdjOWE1LWVhMmEtNGYxOC1iYWM2LTE0ZDhkYWJiMWY3MyIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3BjaG9lbHNmZ3pvcmNiaWRoYnRrLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJjNGRiMTlkYi05Y2NkLTQ4MGMtOGQ3NC1iMDgyM2E4ODU4NDciLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzgyOTI1MjIwLCJpYXQiOjE3ODI5MjE2MjAsImVtYWlsIjoiYXBpLTE3ODI5MjE2MTQyNDVAZXhhbXBsZS5jb20iLCJwaG9uZSI6IiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIiwicHJvdmlkZXJzIjpbImVtYWlsIl19LCJ1c2VyX21ldGFkYXRhIjp7ImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmdWxsX25hbWUiOiJBZG1pbiBDcmVhdGVkIFRlc3QgVXNlciJ9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzgyOTIxNjIwfV0sInNlc3Npb25faWQiOiJkY2RkNzlmOC1hZDJlLTQ5NGQtYTYwZi05YmNmMzk0MDY0NTciLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.Mn7Mrxwq0sFoRB7St1RDX15c09eNMUXWJeupJyfhnk0XiImsS-VW6hRpxubXnx8M8keJowMyMHXGzd5VgO8GcA'\u001b[39m,\n  token_type: \u001b[32m'bearer'\u001b[39m,\n  expires_in: \u001b[33m3600\u001b[39m,\n  expires_at: \u001b[33m1782925220\u001b[39m,\n  refresh_token: \u001b[32m'y5ciyqjhlss7'\u001b[39m,\n  user: {\n    id: \u001b[32m'c4db19db-9ccd-480c-8d74-b0823a885847'\u001b[39m,\n    aud: \u001b[32m'authenticated'\u001b[39m,\n    role: \u001b[32m'authenticated'\u001b[39m,\n    email: \u001b[32m'api-1782921614245@example.com'\u001b[39m,\n    email_confirmed_at: \u001b[32m'2026-07-01T16:00:15.130846Z'\u001b[39m,\n    phone: \u001b[32m''\u001b[39m,\n    confirmed_at: \u001b[32m'2026-07-01T16:00:15.130846Z'\u001b[39m,\n    last_sign_in_at: \u001b[32m'2026-07-01T16:00:20.787979771Z'\u001b[39m,\n    app_metadata: { provider: \u001b[32m'email'\u001b[39m, providers: \u001b[36m[Array]\u001b[39m },\n    user_metadata: { email_verified: \u001b[33mtrue\u001b[39m, full_name: \u001b[32m'Admin Created Test User'\u001b[39m },\n    identities: [ \u001b[36m[Object]\u001b[39m ],\n    created_at: \u001b[32m'2026-07-01T16:00:15.128061Z'\u001b[39m,\n    updated_at: \u001b[32m'2026-07-01T16:00:20.791047Z'\u001b[39m,\n    is_anonymous: \u001b[33mfalse\u001b[39m\n  },\n  weak_password: \u001b[1mnull\u001b[22m\n}\n"
-                        },
-                        {
-                          "text": "[auth.helper] Cleaned up user api-1782921614245@example.com\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:00:13.903Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "21f2822f25174875fa24-3046ff38826a27b35255",
-              "file": "api-contract.spec.ts",
-              "line": 9,
-              "column": 7
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "auth-flow.spec.ts",
-      "file": "auth-flow.spec.ts",
-      "column": 0,
-      "line": 0,
-      "specs": [],
-      "suites": [
-        {
-          "title": "Auth Flow Lifecycle",
-          "file": "auth-flow.spec.ts",
-          "line": 9,
-          "column": 6,
-          "specs": [
-            {
-              "title": "User can sign up, login, and logout",
-              "ok": false,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "failed",
-                      "duration": 18235,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.bg-emerald-500\\\\/10')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.bg-emerald-500\\\\/10')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.bg-emerald-500\\\\/10')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.bg-emerald-500\\\\/10')\u001b[22m\n\n    at SignupPage.expectSuccessMessage (C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts:23:33)\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\auth-flow.spec.ts:32:22",
-                        "location": {
-                          "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts",
-                          "column": 33,
-                          "line": 23
-                        },
-                        "snippet": "\u001b[90m   at \u001b[39m..\\pages\\SignupPage.ts:23\n\n\u001b[0m \u001b[90m 21 |\u001b[39m   \u001b[36masync\u001b[39m expectSuccessMessage() {\n \u001b[90m 22 |\u001b[39m     \u001b[36mconst\u001b[39m successBanner \u001b[33m=\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mpage\u001b[33m.\u001b[39mlocator(\u001b[32m'.bg-emerald-500\\\\/10'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 23 |\u001b[39m     \u001b[36mawait\u001b[39m expect(successBanner)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 24 |\u001b[39m   }\n \u001b[90m 25 |\u001b[39m\n \u001b[90m 26 |\u001b[39m   \u001b[36masync\u001b[39m expectError(message\u001b[33m:\u001b[39m string) {\u001b[0m"
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts",
+                        "column": 48,
+                        "line": 7
                       },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts",
-                            "column": 33,
-                            "line": 23
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.bg-emerald-500\\\\/10')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.bg-emerald-500\\\\/10')\u001b[22m\n\n\n   at ..\\pages\\SignupPage.ts:23\n\n  21 |   async expectSuccessMessage() {\n  22 |     const successBanner = this.page.locator('.bg-emerald-500\\\\/10');\n> 23 |     await expect(successBanner).toBeVisible({ timeout: 10000 });\n     |                                 ^\n  24 |   }\n  25 |\n  26 |   async expectError(message: string) {\n    at SignupPage.expectSuccessMessage (C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts:23:33)\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\auth-flow.spec.ts:32:22"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:00:13.816Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\auth-flow-Auth-Flow-Lifecy-e8638-an-sign-up-login-and-logout-chromium\\test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\auth-flow-Auth-Flow-Lifecy-e8638-an-sign-up-login-and-logout-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\auth-flow-Auth-Flow-Lifecy-e8638-an-sign-up-login-and-logout-chromium\\error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\pages\\SignupPage.ts",
-                        "column": 33,
-                        "line": 23
-                      }
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-pulse')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-pulse')\u001b[22m\n\u001b[2m    19 × locator resolved to 2 elements\u001b[22m\n\u001b[2m       - unexpected value \"2\"\u001b[22m\n\n\n   5 |   \n   6 |   // Wait for loading to finish\n>  7 |   await expect(page.locator('.animate-pulse')).toHaveCount(0, { timeout: 10000 });\n     |                                                ^\n   8 |   \n   9 |   // Check that key sections are rendered\n  10 |   await expect(page.getByText('Connected Sources')).toBeVisible();\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts:7:48"
                     }
                   ],
-                  "status": "unexpected"
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:09:16.529Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-chromium\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-chromium\\error-context.md"
+                    }
+                  ]
                 }
               ],
-              "id": "df6b40174562c70df515-1a2ae62f85d3f53cb5c3",
-              "file": "auth-flow.spec.ts",
-              "line": 21,
-              "column": 7
+              "status": "unexpected"
             }
-          ]
+          ],
+          "id": "90cda532ab82d274b30b-d46ba64729be2d7e42a2",
+          "file": "dashboard.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "dashboard page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 27977,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-pulse')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-pulse')\u001b[22m\n\u001b[2m    15 × locator resolved to 2 elements\u001b[22m\n\u001b[2m       - unexpected value \"2\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-pulse')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-pulse')\u001b[22m\n\u001b[2m    15 × locator resolved to 2 elements\u001b[22m\n\u001b[2m       - unexpected value \"2\"\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts:7:48",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts",
+                      "column": 48,
+                      "line": 7
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m   \n \u001b[90m  6 |\u001b[39m   \u001b[90m// Wait for loading to finish\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.animate-pulse'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m0\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Check that key sections are rendered\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Connected Sources'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts",
+                        "column": 48,
+                        "line": 7
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-pulse')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-pulse')\u001b[22m\n\u001b[2m    15 × locator resolved to 2 elements\u001b[22m\n\u001b[2m       - unexpected value \"2\"\u001b[22m\n\n\n   5 |   \n   6 |   // Wait for loading to finish\n>  7 |   await expect(page.locator('.animate-pulse')).toHaveCount(0, { timeout: 10000 });\n     |                                                ^\n   8 |   \n   9 |   // Check that key sections are rendered\n  10 |   await expect(page.getByText('Connected Sources')).toBeVisible();\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts:7:48"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:10:52.703Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-firefox\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-firefox\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-firefox\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts",
+                    "column": 48,
+                    "line": 7
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "90cda532ab82d274b30b-27a60b4fd38e0cd886fb",
+          "file": "dashboard.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "dashboard page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 27143,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-pulse')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-pulse')\u001b[22m\n\u001b[2m    12 × locator resolved to 2 elements\u001b[22m\n\u001b[2m       - unexpected value \"2\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-pulse')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-pulse')\u001b[22m\n\u001b[2m    12 × locator resolved to 2 elements\u001b[22m\n\u001b[2m       - unexpected value \"2\"\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts:7:48",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts",
+                      "column": 48,
+                      "line": 7
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m   \n \u001b[90m  6 |\u001b[39m   \u001b[90m// Wait for loading to finish\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.animate-pulse'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m0\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Check that key sections are rendered\u001b[39m\n \u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Connected Sources'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts",
+                        "column": 48,
+                        "line": 7
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.animate-pulse')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.animate-pulse')\u001b[22m\n\u001b[2m    12 × locator resolved to 2 elements\u001b[22m\n\u001b[2m       - unexpected value \"2\"\u001b[22m\n\n\n   5 |   \n   6 |   // Wait for loading to finish\n>  7 |   await expect(page.locator('.animate-pulse')).toHaveCount(0, { timeout: 10000 });\n     |                                                ^\n   8 |   \n   9 |   // Check that key sections are rendered\n  10 |   await expect(page.getByText('Connected Sources')).toBeVisible();\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts:7:48"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:12:47.163Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-webkit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-webkit\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\dashboard-dashboard-page-renders-without-crashing-webkit\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\dashboard.spec.ts",
+                    "column": 48,
+                    "line": 7
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "90cda532ab82d274b30b-2d556afcf9a3cb73217b",
+          "file": "dashboard.spec.ts",
+          "line": 3,
+          "column": 5
         }
       ]
     },
     {
-      "title": "debug.spec.ts",
-      "file": "debug.spec.ts",
+      "title": "documents.spec.ts",
+      "file": "documents.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [],
-      "suites": [
+      "specs": [
         {
-          "title": "Debug Login",
-          "file": "debug.spec.ts",
-          "line": 7,
-          "column": 6,
-          "specs": [
+          "title": "documents page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
             {
-              "title": "debug login",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 25228,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    3) <p class=\"mt-2 text-muted-foreground\">View and manage documents indexed across your con…</p> aka getByText('View and manage documents')\n    4) <div class=\"hidden sm:flex items-center justify-between px-4 py-3 border-b bg-muted/20 text-xs font-medium text-muted-foreground uppercase tracking-wider\">…</div> aka getByText('DocumentStatusVersionChunksUpdated')\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    3) <p class=\"mt-2 text-muted-foreground\">View and manage documents indexed across your con…</p> aka getByText('View and manage documents')\n    4) <div class=\"hidden sm:flex items-center justify-between px-4 py-3 border-b bg-muted/20 text-xs font-medium text-muted-foreground uppercase tracking-wider\">…</div> aka getByText('DocumentStatusVersionChunksUpdated')\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts:10:45",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                      "column": 45,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Check that the table renders\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Documents'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'table'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 13523,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[auth.helper] Admin created test user test-1782921613735@example.com\n"
-                        },
-                        {
-                          "text": "[auth.helper] Synced test user test-1782921613735@example.com to backend\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/login\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/1j54l8njyc9h6.css\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/239j6i8_ui0sr.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/3shya4giyqir4.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/0a0ree1ngq4q_.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/438lsfsru407w.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/turbopack-0x-vkgcbn-hsk.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/21p-i82-2u343.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/0sv0r_s12j56h.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/0w2emjz_uno0m.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/014nw2-kveg0w.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/2au51f5kxj4gx.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/3_ondx859he-r.js\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=ESMN0uHFtARRz41R\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=aqvIQFTrQXhwZMdq\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=1F8-AEclBcB9jFE6\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/signup?_rsc=_H_fFy2_Q06N8BA7\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=JFktGzpgQyK4KTxY\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/login?_rsc=Lk_IRk2WavpJrJsC\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/signup?_rsc=1F8-AEclBcB9jFE6\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/signup?_rsc=SyrD8bJX7udM4Ffd\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/signup?_rsc=vMXKetKx_uNlGRnr\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/22dsokwtiq-tc.js\n"
-                        },
-                        {
-                          "text": "<< 303 https://calyxbot.vercel.app/login\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/_next/static/chunks/3g931g-itmu24.js\n"
-                        },
-                        {
-                          "text": "<< 307 https://calyxbot.vercel.app/signup?_rsc=_i_aeImnuN6u1u1r\n"
-                        },
-                        {
-                          "text": "<< 307 https://calyxbot.vercel.app/login?_rsc=_i_aeImnuN6u1u1r\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/dashboard\n"
-                        },
-                        {
-                          "text": "<< 200 https://calyxbot.vercel.app/dashboard\n"
-                        },
-                        {
-                          "text": "[auth.helper] Cleaned up user test-1782921613735@example.com\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:00:24.321Z",
-                      "annotations": [],
-                      "attachments": []
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                        "column": 45,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    3) <p class=\"mt-2 text-muted-foreground\">View and manage documents indexed across your con…</p> aka getByText('View and manage documents')\n    4) <div class=\"hidden sm:flex items-center justify-between px-4 py-3 border-b bg-muted/20 text-xs font-medium text-muted-foreground uppercase tracking-wider\">…</div> aka getByText('DocumentStatusVersionChunksUpdated')\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n\n\n   8 |   \n   9 |   // Check that the table renders\n> 10 |   await expect(page.getByText('Documents')).toBeVisible();\n     |                                             ^\n  11 |   await expect(page.getByRole('table')).toBeVisible();\n  12 | });\n  13 |\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts:10:45"
                     }
                   ],
-                  "status": "expected"
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:09:16.890Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-chromium\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-chromium\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                    "column": 45,
+                    "line": 10
+                  }
                 }
               ],
-              "id": "5ee6126738e1012db859-8556c97089b4544007ad",
-              "file": "debug.spec.ts",
-              "line": 16,
-              "column": 7
+              "status": "unexpected"
             }
-          ]
+          ],
+          "id": "9111b41e0f82b685c9ea-00a73ab08f37a8ca3915",
+          "file": "documents.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "documents page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 28514,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts:10:45",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                      "column": 45,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Check that the table renders\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Documents'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'table'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                        "column": 45,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n\n\n   8 |   \n   9 |   // Check that the table renders\n> 10 |   await expect(page.getByText('Documents')).toBeVisible();\n     |                                             ^\n  11 |   await expect(page.getByRole('table')).toBeVisible();\n  12 | });\n  13 |\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts:10:45"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:11:16.131Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-firefox\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-firefox\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-firefox\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                    "column": 45,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9111b41e0f82b685c9ea-58597533da5bc87b3b03",
+          "file": "documents.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "documents page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 20227,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    3) <p class=\"mt-2 text-muted-foreground\">View and manage documents indexed across your con…</p> aka getByText('View and manage documents')\n    4) <div class=\"hidden sm:flex items-center justify-between px-4 py-3 border-b bg-muted/20 text-xs font-medium text-muted-foreground uppercase tracking-wider\">…</div> aka getByText('DocumentStatusVersionChunksUpdated')\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    3) <p class=\"mt-2 text-muted-foreground\">View and manage documents indexed across your con…</p> aka getByText('View and manage documents')\n    4) <div class=\"hidden sm:flex items-center justify-between px-4 py-3 border-b bg-muted/20 text-xs font-medium text-muted-foreground uppercase tracking-wider\">…</div> aka getByText('DocumentStatusVersionChunksUpdated')\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts:10:45",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                      "column": 45,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Check that the table renders\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Documents'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'table'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                        "column": 45,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Documents')\nExpected: visible\nError: strict mode violation: getByText('Documents') resolved to 4 elements:\n    1) <a href=\"/documents\" class=\"flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary\">…</a> aka getByRole('link', { name: 'Documents' })\n    2) <h1 class=\"text-3xl font-bold tracking-tight\">Documents</h1> aka getByRole('heading', { name: 'Documents' })\n    3) <p class=\"mt-2 text-muted-foreground\">View and manage documents indexed across your con…</p> aka getByText('View and manage documents')\n    4) <div class=\"hidden sm:flex items-center justify-between px-4 py-3 border-b bg-muted/20 text-xs font-medium text-muted-foreground uppercase tracking-wider\">…</div> aka getByText('DocumentStatusVersionChunksUpdated')\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Documents')\u001b[22m\n\n\n   8 |   \n   9 |   // Check that the table renders\n> 10 |   await expect(page.getByText('Documents')).toBeVisible();\n     |                                             ^\n  11 |   await expect(page.getByRole('table')).toBeVisible();\n  12 | });\n  13 |\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts:10:45"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:13:01.616Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-webkit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-webkit\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\documents-documents-page-renders-without-crashing-webkit\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\documents.spec.ts",
+                    "column": 45,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9111b41e0f82b685c9ea-1a39945df520fcd9a78e",
+          "file": "documents.spec.ts",
+          "line": 3,
+          "column": 5
         }
       ]
     },
     {
-      "title": "performance.spec.ts",
-      "file": "performance.spec.ts",
+      "title": "integrations.spec.ts",
+      "file": "integrations.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [],
-      "suites": [
+      "specs": [
         {
-          "title": "Performance Baselines",
-          "file": "performance.spec.ts",
-          "line": 9,
-          "column": 6,
-          "specs": [
+          "title": "integrations page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
             {
-              "title": "Login and /auth/me latency",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 18489,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts:10:58",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                      "column": 58,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Check that the shell renders\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Connected Integrations'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Available Integrations'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 33898,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[auth.helper] Admin created test user perf-1782921646240@example.com\n"
-                        },
-                        {
-                          "text": "[auth.helper] Synced test user perf-1782921646240@example.com to backend\n"
-                        },
-                        {
-                          "text": "[Performance] Login round-trip latency: 14787.98ms\n"
-                        },
-                        {
-                          "text": "[auth.helper] Cleaned up user perf-1782921646240@example.com\n"
-                        }
-                      ],
-                      "stderr": [
-                        {
-                          "text": "⚠️ Latency warning: 14787.98ms exceeds 5000ms\n"
-                        }
-                      ],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:00:46.271Z",
-                      "annotations": [],
-                      "attachments": []
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                        "column": 58,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n\n\n   8 |   \n   9 |   // Check that the shell renders\n> 10 |   await expect(page.getByText('Connected Integrations')).toBeVisible();\n     |                                                          ^\n  11 |   await expect(page.getByText('Available Integrations')).toBeVisible();\n  12 | });\n  13 |\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts:10:58"
                     }
                   ],
-                  "status": "expected"
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:10:09.727Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-chromium\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-chromium\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                    "column": 58,
+                    "line": 10
+                  }
                 }
               ],
-              "id": "b15d6361b2fc38288977-d0ec1d75fbea30f40b2b",
-              "file": "performance.spec.ts",
-              "line": 16,
-              "column": 7
+              "status": "unexpected"
             }
-          ]
+          ],
+          "id": "b1ad4c9b5349975121f2-5a29efa9bb9b740cfdf8",
+          "file": "integrations.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "integrations page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 24863,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts:10:58",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                      "column": 58,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Check that the shell renders\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Connected Integrations'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Available Integrations'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                        "column": 58,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n\n\n   8 |   \n   9 |   // Check that the shell renders\n> 10 |   await expect(page.getByText('Connected Integrations')).toBeVisible();\n     |                                                          ^\n  11 |   await expect(page.getByText('Available Integrations')).toBeVisible();\n  12 | });\n  13 |\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts:10:58"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:12:04.199Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-firefox\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-firefox\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-firefox\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                    "column": 58,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b1ad4c9b5349975121f2-4577332be8abfb1eacff",
+          "file": "integrations.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "integrations page renders without crashing",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 22933,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts:10:58",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                      "column": 58,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Check that the shell renders\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Connected Integrations'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Available Integrations'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 13 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                        "column": 58,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Connected Integrations')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Connected Integrations')\u001b[22m\n\n\n   8 |   \n   9 |   // Check that the shell renders\n> 10 |   await expect(page.getByText('Connected Integrations')).toBeVisible();\n     |                                                          ^\n  11 |   await expect(page.getByText('Available Integrations')).toBeVisible();\n  12 | });\n  13 |\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts:10:58"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:13:20.394Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-webkit\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-webkit\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\integrations-integrations-page-renders-without-crashing-webkit\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\integrations.spec.ts",
+                    "column": 58,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b1ad4c9b5349975121f2-8a408855d2898475d066",
+          "file": "integrations.spec.ts",
+          "line": 3,
+          "column": 5
         }
       ]
     },
     {
-      "title": "security.spec.ts",
-      "file": "security.spec.ts",
+      "title": "search.spec.ts",
+      "file": "search.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [],
-      "suites": [
+      "specs": [
         {
-          "title": "Security & Hardening",
-          "file": "security.spec.ts",
-          "line": 7,
-          "column": 6,
-          "specs": [
+          "title": "search page renders and handles queries",
+          "ok": false,
+          "tags": [],
+          "tests": [
             {
-              "title": "Unauthenticated user is bounced from /dashboard",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 13900,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts:10:80",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                      "column": 80,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Verify empty state\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'Ask anything or search your memory...'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Start typing to search across your documents'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m\n \u001b[90m 13 |\u001b[39m   \u001b[90m// Trigger search\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 4573,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[auth.helper] Admin created test user test-1782921613735@example.com\n"
-                        }
-                      ],
-                      "stderr": [
-                        {
-                          "text": "[auth.helper] Failed to sync user to backend: 500 {\"success\":false,\"error\":{\"code\":\"INTERNAL_SERVER_ERROR\",\"message\":\"An unexpected error occurred.\",\"request_id\":\"\",\"timestamp\":\"2026-07-01T16:00:48.818299+00:00\"}}\n"
-                        }
-                      ],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:00:46.072Z",
-                      "annotations": [],
-                      "attachments": []
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                        "column": 80,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n\n\n   8 |   \n   9 |   // Verify empty state\n> 10 |   await expect(page.getByPlaceholder('Ask anything or search your memory...')).toBeVisible();\n     |                                                                                ^\n  11 |   await expect(page.getByText('Start typing to search across your documents')).toBeVisible();\n  12 |\n  13 |   // Trigger search\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts:10:80"
                     }
                   ],
-                  "status": "expected"
-                }
-              ],
-              "id": "a7e9410bcc1ef00e9656-59d68f5aff4450a18394",
-              "file": "security.spec.ts",
-              "line": 16,
-              "column": 7
-            },
-            {
-              "title": "Authenticated user is bounced from /login",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:10:33.154Z",
                   "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "attachments": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 28875,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[auth.helper] Cleaned up user test-1782921613735@example.com\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:00:53.590Z",
-                      "annotations": [],
-                      "attachments": []
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\search-search-page-renders-and-handles-queries-chromium\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\search-search-page-renders-and-handles-queries-chromium\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\search-search-page-renders-and-handles-queries-chromium\\error-context.md"
                     }
                   ],
-                  "status": "expected"
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                    "column": 80,
+                    "line": 10
+                  }
                 }
               ],
-              "id": "a7e9410bcc1ef00e9656-3ade87e87d6527833ce6",
-              "file": "security.spec.ts",
-              "line": 22,
-              "column": 7
-            },
-            {
-              "title": "Backend responses contain baseline security headers",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 404,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[auth.helper] Admin created test user test-1782921646002@example.com\n"
-                        },
-                        {
-                          "text": "[auth.helper] Synced test user test-1782921646002@example.com to backend\n"
-                        },
-                        {
-                          "text": "[auth.helper] Cleaned up user test-1782921646002@example.com\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:01:21.972Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "a7e9410bcc1ef00e9656-12269945d2f9300f8172",
-              "file": "security.spec.ts",
-              "line": 36,
-              "column": 7
+              "status": "unexpected"
             }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "session.spec.ts",
-      "file": "session.spec.ts",
-      "column": 0,
-      "line": 0,
-      "specs": [],
-      "suites": [
+          ],
+          "id": "a088064de9fe351eef5f-1f44a306c1052430903d",
+          "file": "search.spec.ts",
+          "line": 3,
+          "column": 5
+        },
         {
-          "title": "Session Edge Cases",
-          "file": "session.spec.ts",
-          "line": 7,
-          "column": 6,
-          "specs": [
+          "title": "search page renders and handles queries",
+          "ok": false,
+          "tags": [],
+          "tests": [
             {
-              "title": "Session persists across browser refresh",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 16353,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts:10:80",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                      "column": 80,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Verify empty state\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'Ask anything or search your memory...'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Start typing to search across your documents'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m\n \u001b[90m 13 |\u001b[39m   \u001b[90m// Trigger search\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 15010,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[auth.helper] Admin created test user session-1782921683362@example.com\n"
-                        },
-                        {
-                          "text": "[auth.helper] Synced test user session-1782921683362@example.com to backend\n"
-                        },
-                        {
-                          "text": "[auth.helper] Cleaned up user session-1782921683362@example.com\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:01:23.364Z",
-                      "annotations": [],
-                      "attachments": []
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                        "column": 80,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n\n\n   8 |   \n   9 |   // Verify empty state\n> 10 |   await expect(page.getByPlaceholder('Ask anything or search your memory...')).toBeVisible();\n     |                                                                                ^\n  11 |   await expect(page.getByText('Start typing to search across your documents')).toBeVisible();\n  12 |\n  13 |   // Trigger search\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts:10:80"
                     }
                   ],
-                  "status": "expected"
-                }
-              ],
-              "id": "6fa1842ca325e3ffbb00-f9f5b3b45f1f7da1b8b3",
-              "file": "session.spec.ts",
-              "line": 26,
-              "column": 7
-            },
-            {
-              "title": "Invalid token correctly bounces to login",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 30000,
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:12:27.890Z",
                   "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "attachments": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 16283,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[auth.helper] Admin created test user session-1782921687347@example.com\n"
-                        },
-                        {
-                          "text": "[auth.helper] Synced test user session-1782921687347@example.com to backend\n"
-                        },
-                        {
-                          "text": "[auth.helper] Cleaned up user session-1782921687347@example.com\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-07-01T16:01:27.349Z",
-                      "annotations": [],
-                      "attachments": []
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\search-search-page-renders-and-handles-queries-firefox\\test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\search-search-page-renders-and-handles-queries-firefox\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\search-search-page-renders-and-handles-queries-firefox\\error-context.md"
                     }
                   ],
-                  "status": "expected"
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                    "column": 80,
+                    "line": 10
+                  }
                 }
               ],
-              "id": "6fa1842ca325e3ffbb00-3406950327e251a4adef",
-              "file": "session.spec.ts",
-              "line": 33,
-              "column": 7
+              "status": "unexpected"
             }
-          ]
+          ],
+          "id": "a088064de9fe351eef5f-9f5a5f987587bfceadd5",
+          "file": "search.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "search page renders and handles queries",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 23102,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts:10:80",
+                    "location": {
+                      "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                      "column": 80,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m   \n \u001b[90m  9 |\u001b[39m   \u001b[90m// Verify empty state\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByPlaceholder(\u001b[32m'Ask anything or search your memory...'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'Start typing to search across your documents'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m\n \u001b[90m 13 |\u001b[39m   \u001b[90m// Trigger search\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                        "column": 80,
+                        "line": 10
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByPlaceholder('Ask anything or search your memory...')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByPlaceholder('Ask anything or search your memory...')\u001b[22m\n\n\n   8 |   \n   9 |   // Verify empty state\n> 10 |   await expect(page.getByPlaceholder('Ask anything or search your memory...')).toBeVisible();\n     |                                                                                ^\n  11 |   await expect(page.getByText('Start typing to search across your documents')).toBeVisible();\n  12 |\n  13 |   // Trigger search\n    at C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts:10:80"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-07-03T19:13:27.852Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\search-search-page-renders-and-handles-queries-webkit\\video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\artifacts\\test-results\\search-search-page-renders-and-handles-queries-webkit\\error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Yug Pathak\\Desktop\\calyxbot.ai\\frontend\\tests\\e2e\\specs\\search.spec.ts",
+                    "column": 80,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a088064de9fe351eef5f-01408dfc6fd7262afe7f",
+          "file": "search.spec.ts",
+          "line": 3,
+          "column": 5
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-07-01T16:00:07.837Z",
-    "duration": 99773.23,
-    "expected": 8,
+    "startTime": "2026-07-03T19:09:02.283Z",
+    "duration": 289659.24,
+    "expected": 0,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 12,
     "flaky": 0
   }
 }
