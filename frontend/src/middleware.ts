@@ -32,7 +32,11 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // Protected routes
-  if (request.nextUrl.pathname.startsWith('/dashboard') && !user) {
+  const isMockEnv = process.env.USE_MOCK_ENV === 'true';
+  const protectedRoutes = ['/dashboard', '/integrations', '/documents', '/search', '/settings'];
+  const isProtected = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route));
+  
+  if (!isMockEnv && isProtected && !user) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
