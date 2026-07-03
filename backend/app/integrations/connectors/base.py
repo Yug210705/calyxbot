@@ -1,6 +1,6 @@
 import abc
-import uuid
-from typing import AsyncGenerator, Dict, Any, List
+from typing import Any
+from collections.abc import AsyncGenerator
 
 class BaseConnector(abc.ABC):
     """Abstract base class for all external knowledge connectors."""
@@ -17,7 +17,7 @@ class BaseConnector(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def discover(self, sync_cursor: str = None) -> AsyncGenerator[Dict[str, Any], None]:
+    async def discover(self, sync_cursor: str = None) -> AsyncGenerator[dict[str, Any], None]:
         """
         Discover documents that need to be synced.
         Yields lightweight metadata items (e.g. file IDs, names, timestamps).
@@ -25,14 +25,14 @@ class BaseConnector(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def download(self, document_metadata: Dict[str, Any]) -> bytes:
+    async def download(self, document_metadata: dict[str, Any]) -> bytes:
         """
         Download the raw content for a single discovered document.
         """
         pass
 
     @abc.abstractmethod
-    async def normalize(self, document_metadata: Dict[str, Any], raw_content: bytes) -> Dict[str, Any]:
+    async def normalize(self, document_metadata: dict[str, Any], raw_content: bytes) -> dict[str, Any]:
         """
         Normalize the raw content into a standard plain text or markdown structure.
         Returns a dictionary containing 'title', 'content', 'mime_type', 'source', 'metadata'.

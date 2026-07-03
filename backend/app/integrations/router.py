@@ -1,5 +1,4 @@
-from typing import Annotated, List
-from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import RedirectResponse
 import uuid
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -21,7 +20,7 @@ def get_integration_service(db: AsyncSession = Depends(get_db)):
     cred_service = OAuthCredentialService(db, encryption_service)
     return IntegrationService(db, cred_service)
 
-@router.get("", response_model=List[IntegrationConnectionResponse])
+@router.get("", response_model=list[IntegrationConnectionResponse])
 async def list_integrations(
     request: Request,
     service: IntegrationService = Depends(get_integration_service)
@@ -145,7 +144,7 @@ async def trigger_sync(
         logger.exception("Trigger sync failed")
         raise e
 
-@router.get("/jobs", response_model=List[SyncJobResponse])
+@router.get("/jobs", response_model=list[SyncJobResponse])
 async def list_sync_jobs_route(
     request: Request,
     service: IntegrationService = Depends(get_integration_service)

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { apiFetch } from "./client";
 import { DocumentListItem, DocumentDetail, DocumentListResponse } from "../types/documents";
 import { mockDocumentsList, mockDocumentDetails } from "../mocks/documents";

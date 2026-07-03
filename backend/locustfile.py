@@ -1,5 +1,4 @@
 from locust import HttpUser, task, between
-import uuid
 
 class CalyxUser(HttpUser):
     wait_time = between(0.1, 0.2)

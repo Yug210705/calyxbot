@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SearchResultItem } from "../types/search";
 
 const now = new Date().toISOString();

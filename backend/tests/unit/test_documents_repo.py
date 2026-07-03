@@ -2,7 +2,7 @@ import uuid
 import pytest
 from unittest.mock import AsyncMock
 
-from app.modules.documents.models import Document, DocumentChunk, DocumentStatus
+from app.modules.documents.models import Document, DocumentChunk
 from app.modules.documents.repositories import DocumentRepository, ChunkRepository
 
 @pytest.fixture

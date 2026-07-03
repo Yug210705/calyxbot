@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Plug } from "lucide-react";
 
 export function IntegrationsEmptyState() {

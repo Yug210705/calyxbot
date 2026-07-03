@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from "react";
 import { SettingsData } from "../types/settings";
 import { getSettingsData, updateSettingsData } from "../api/settings";

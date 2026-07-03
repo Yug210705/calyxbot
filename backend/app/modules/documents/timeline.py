@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import List, Optional
 from app.modules.documents.models import Document, DocumentStatus
 from app.modules.documents.schemas import ProcessingTimelineItem
 
@@ -23,7 +22,7 @@ STATUS_ORDER = {
     DocumentStatus.FAILED: -1,
 }
 
-def generate_document_timeline(doc: Document) -> List[ProcessingTimelineItem]:
+def generate_document_timeline(doc: Document) -> list[ProcessingTimelineItem]:
     """
     Derives the processing timeline based on the current Document state.
     """
@@ -34,14 +33,11 @@ def generate_document_timeline(doc: Document) -> List[ProcessingTimelineItem]:
         stage_status_val = i + 1  # 1 to 6
         
         status = "pending"
-        timestamp: Optional[datetime] = None
+        timestamp: datetime | None = None
         
         if doc.status == DocumentStatus.FAILED:
             # If failed, the stage right after the last successful one is FAILED
-            if stage_status_val == 1 and current_status_val < 1:
-                status = "failed"
-                timestamp = doc.updated_at
-            elif stage_status_val == current_status_val + 1:
+            if (stage_status_val == 1 and current_status_val < 1) or stage_status_val == current_status_val + 1:
                 status = "failed"
                 timestamp = doc.updated_at
             elif stage_status_val <= current_status_val:

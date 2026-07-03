@@ -6,7 +6,6 @@ from unittest.mock import AsyncMock, patch
 
 from app.main import app
 from app.modules.documents.models import Document, DocumentStatus
-from app.integrations.models import Connector, ConnectorState
 
 async def test():
     org_id = uuid.UUID("00000000-0000-0000-0000-000000000001")
@@ -25,8 +24,8 @@ async def test():
         status=DocumentStatus.READY,
         version=1,
         is_latest=True,
-        updated_at=datetime.datetime.now(datetime.timezone.utc),
-        created_at=datetime.datetime.now(datetime.timezone.utc)
+        updated_at=datetime.datetime.now(datetime.UTC),
+        created_at=datetime.datetime.now(datetime.UTC)
     )
     
     with patch("app.modules.documents.services.DocumentRepository") as MockRepo:

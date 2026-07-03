@@ -1,9 +1,8 @@
 import uuid
 from datetime import datetime
 from enum import Enum
-from typing import Optional
 
-from sqlalchemy import Column, DateTime, Enum as SAEnum, Float, ForeignKey, Integer, String, UniqueConstraint, Index
+from sqlalchemy import DateTime, Enum as SAEnum, Float, ForeignKey, Integer, String, UniqueConstraint, Index
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -44,9 +43,9 @@ class KnowledgeObject(Base, TimestampMixin):
     canonical_key: Mapped[str] = mapped_column(String, index=True, nullable=False)
     properties: Mapped[dict] = mapped_column(JSONB, nullable=False)
     confidence: Mapped[float] = mapped_column(Float, nullable=False)
-    primary_source_document_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
+    primary_source_document_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
     
-    deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 class KnowledgeRelation(Base, TimestampMixin):
     __tablename__ = "knowledge_relations"
@@ -58,9 +57,9 @@ class KnowledgeRelation(Base, TimestampMixin):
     confidence: Mapped[float] = mapped_column(Float, default=1.0, nullable=False)
     evidence_count: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
     
-    created_by_pipeline_version: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    created_from_document: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
-    created_from_chunk: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("document_chunks.id"), nullable=True)
-    meta_data: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
+    created_by_pipeline_version: Mapped[str | None] = mapped_column(String, nullable=True)
+    created_from_document: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
+    created_from_chunk: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("document_chunks.id"), nullable=True)
+    meta_data: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     
-    deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

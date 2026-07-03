@@ -1,5 +1,4 @@
 import uuid
-from typing import Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -44,9 +43,9 @@ class DocumentVersioningService:
     async def list_documents(
         self,
         org_id: uuid.UUID,
-        q: Optional[str] = None,
-        provider: Optional[str] = None,
-        status: Optional[str] = None,
+        q: str | None = None,
+        provider: str | None = None,
+        status: str | None = None,
         limit: int = 50,
         offset: int = 0
     ):

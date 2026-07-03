@@ -1,5 +1,4 @@
 import uuid
-from typing import Optional
 from fastapi import APIRouter, Depends, Query, HTTPException, Request
 import fastapi
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,9 +17,9 @@ def get_document_service(session: AsyncSession = Depends(get_db)) -> DocumentVer
 @router.get("", response_model=DocumentListResponse)
 async def list_documents(
     request: Request,
-    q: Optional[str] = Query(None),
-    provider: Optional[str] = Query(None),
-    status: Optional[str] = Query(None),
+    q: str | None = Query(None),
+    provider: str | None = Query(None),
+    status: str | None = Query(None),
     limit: int = Query(50, ge=1, le=100),
     offset: int = Query(0, ge=0),
     service: DocumentVersioningService = Depends(get_document_service)

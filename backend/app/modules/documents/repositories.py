@@ -1,5 +1,4 @@
 import uuid
-from typing import List, Optional
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,12 +15,12 @@ class DocumentRepository:
         await self.session.refresh(document)
         return document
 
-    async def get_by_id(self, org_id: uuid.UUID, document_id: uuid.UUID) -> Optional[Document]:
+    async def get_by_id(self, org_id: uuid.UUID, document_id: uuid.UUID) -> Document | None:
         stmt = select(Document).where(Document.id == document_id, Document.organization_id == org_id, Document.deleted_at.is_(None))
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
         
-    async def get_by_external_id(self, org_id: uuid.UUID, connector_id: uuid.UUID, external_id: str) -> Optional[Document]:
+    async def get_by_external_id(self, org_id: uuid.UUID, connector_id: uuid.UUID, external_id: str) -> Document | None:
         stmt = select(Document).where(
             Document.organization_id == org_id, 
             Document.connector_id == connector_id,
@@ -31,7 +30,7 @@ class DocumentRepository:
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
 
-    async def list_by_connector(self, org_id: uuid.UUID, connector_id: uuid.UUID) -> List[Document]:
+    async def list_by_connector(self, org_id: uuid.UUID, connector_id: uuid.UUID) -> list[Document]:
         stmt = select(Document).where(
             Document.organization_id == org_id,
             Document.connector_id == connector_id,
@@ -43,13 +42,13 @@ class DocumentRepository:
     async def list_documents(
         self, 
         org_id: uuid.UUID, 
-        q: Optional[str] = None, 
-        provider: Optional[str] = None, 
-        status: Optional[str] = None,
+        q: str | None = None, 
+        provider: str | None = None, 
+        status: str | None = None,
         limit: int = 50,
         offset: int = 0
     ):
-        from sqlalchemy import func, or_
+        from sqlalchemy import func
         from app.integrations.models import Connector
         
         stmt = select(Document, Connector.provider).outerjoin(
@@ -125,12 +124,12 @@ class ChunkRepository:
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def create_many(self, chunks: List[DocumentChunk]) -> List[DocumentChunk]:
+    async def create_many(self, chunks: list[DocumentChunk]) -> list[DocumentChunk]:
         self.session.add_all(chunks)
         await self.session.flush()
         return chunks
 
-    async def get_by_document_id(self, org_id: uuid.UUID, document_id: uuid.UUID) -> List[DocumentChunk]:
+    async def get_by_document_id(self, org_id: uuid.UUID, document_id: uuid.UUID) -> list[DocumentChunk]:
         stmt = select(DocumentChunk).join(Document).where(
             DocumentChunk.document_id == document_id,
             Document.organization_id == org_id,

@@ -1,6 +1,5 @@
-import pytest
 from app.modules.documents.tokenizer import Tokenizer
-from app.modules.documents.chunker import RecursiveChunker, ChunkingConfig, ChunkResult
+from app.modules.documents.chunker import RecursiveChunker, ChunkingConfig
 
 def test_page_break_forces_new_chunk():
     tokenizer = Tokenizer()

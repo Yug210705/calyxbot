@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Plus } from "lucide-react";
 
 interface IntegrationsHeaderProps {

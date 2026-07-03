@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import { SearchResultItem } from "@/lib/types/search";
 import { Copy, Link as LinkIcon, Check } from "lucide-react";

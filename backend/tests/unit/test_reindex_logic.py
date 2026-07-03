@@ -1,5 +1,4 @@
 import uuid
-import pytest
 from app.modules.documents.models import DocumentChunk
 from app.modules.documents.reindex import ChunkReindexPlanner
 

@@ -1,5 +1,6 @@
 import abc
-from typing import Dict, Any, Callable, Awaitable
+from typing import Any
+from collections.abc import Callable, Awaitable
 
 class OAuthFlowManager(abc.ABC):
     """Abstract manager for OAuth2 flows and token lifecycles."""
@@ -9,25 +10,25 @@ class OAuthFlowManager(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def exchange_code_for_tokens(self, code: str) -> Dict[str, Any]:
+    async def exchange_code_for_tokens(self, code: str) -> dict[str, Any]:
         pass
 
     @abc.abstractmethod
-    async def refresh_tokens(self, refresh_token: str) -> Dict[str, Any]:
+    async def refresh_tokens(self, refresh_token: str) -> dict[str, Any]:
         pass
 
     @abc.abstractmethod
-    async def is_token_expired(self, credentials: Dict[str, Any]) -> bool:
+    async def is_token_expired(self, credentials: dict[str, Any]) -> bool:
         pass
 
 class OAuthTokenRefresher:
     """Helper to automatically refresh and persist tokens before executing a request."""
     
-    def __init__(self, flow_manager: OAuthFlowManager, persist_callback: Callable[[Dict[str, Any]], Awaitable[None]]):
+    def __init__(self, flow_manager: OAuthFlowManager, persist_callback: Callable[[dict[str, Any]], Awaitable[None]]):
         self.flow_manager = flow_manager
         self.persist_callback = persist_callback
 
-    async def execute_with_refresh(self, credentials: Dict[str, Any], api_call: Callable[[Dict[str, Any]], Awaitable[Any]]) -> Any:
+    async def execute_with_refresh(self, credentials: dict[str, Any], api_call: Callable[[dict[str, Any]], Awaitable[Any]]) -> Any:
         if await self.flow_manager.is_token_expired(credentials):
             if "refresh_token" not in credentials:
                 raise ValueError("Token is expired and no refresh_token is available.")
@@ -60,7 +61,7 @@ class GoogleOAuthFlowManager(OAuthFlowManager):
         url = "https://accounts.google.com/o/oauth2/v2/auth?" + urllib.parse.urlencode(params)
         return url
 
-    async def exchange_code_for_tokens(self, code: str) -> Dict[str, Any]:
+    async def exchange_code_for_tokens(self, code: str) -> dict[str, Any]:
         settings = get_settings()
         async with httpx.AsyncClient() as client:
             resp = await client.post("https://oauth2.googleapis.com/token", data={
@@ -82,7 +83,7 @@ class GoogleOAuthFlowManager(OAuthFlowManager):
                 "token_type": data.get("token_type", "Bearer")
             }
 
-    async def refresh_tokens(self, refresh_token: str) -> Dict[str, Any]:
+    async def refresh_tokens(self, refresh_token: str) -> dict[str, Any]:
         settings = get_settings()
         async with httpx.AsyncClient() as client:
             resp = await client.post("https://oauth2.googleapis.com/token", data={
@@ -99,7 +100,7 @@ class GoogleOAuthFlowManager(OAuthFlowManager):
                 "expires_at": int(time.time()) + data.get("expires_in", 3600),
             }
 
-    async def is_token_expired(self, credentials: Dict[str, Any]) -> bool:
+    async def is_token_expired(self, credentials: dict[str, Any]) -> bool:
         expires_at = credentials.get("expires_at", 0)
         # Add 5 minutes buffer
         return (time.time() + 300) > expires_at

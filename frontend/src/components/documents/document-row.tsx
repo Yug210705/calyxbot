@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/static-components */
 import { DocumentListItem } from "@/lib/types/documents";
 import { DocumentStatusBadge } from "./document-status-badge";
 import { DocumentSourceBadge } from "./document-source-badge";

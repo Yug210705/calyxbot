@@ -1,7 +1,7 @@
 import time
 import uuid
 import jwt
-from typing import Dict, Any
+from typing import Any
 
 from app.core.config import get_settings
 
@@ -23,7 +23,7 @@ def create_oauth_state(org_id: uuid.UUID, user_id: uuid.UUID, provider: str) -> 
     
     return jwt.encode(payload, settings.SUPABASE_JWT_SECRET, algorithm="HS256")
 
-def parse_oauth_state(state: str) -> Dict[str, Any]:
+def parse_oauth_state(state: str) -> dict[str, Any]:
     """Validates and parses the OAuth state."""
     settings = get_settings()
     

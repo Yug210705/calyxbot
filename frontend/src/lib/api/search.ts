@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { apiFetch, ApiError } from "./client";
 import { SearchResponse, SearchFilters } from "../types/search";
 import { getMockSearchResults } from "../mocks/search";

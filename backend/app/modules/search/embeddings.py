@@ -1,7 +1,6 @@
 import abc
 import asyncio
 import logging
-from typing import List
 from openai import AsyncOpenAI, APIConnectionError, RateLimitError, APITimeoutError, InternalServerError
 from app.core.config import get_settings
 
@@ -14,12 +13,12 @@ class EmbeddingInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def embed_documents(self, texts: List[str]) -> List[List[float]]:
+    async def embed_documents(self, texts: list[str]) -> list[list[float]]:
         """Embed a list of document chunks."""
         pass
 
     @abc.abstractmethod
-    async def embed_query(self, text: str) -> List[float]:
+    async def embed_query(self, text: str) -> list[float]:
         """Embed a single query string."""
         pass
 
@@ -34,7 +33,7 @@ class OpenAIEmbeddings(EmbeddingInterface):
     def vector_size(self) -> int:
         return self._vector_size
 
-    async def embed_documents(self, texts: List[str]) -> List[List[float]]:
+    async def embed_documents(self, texts: list[str]) -> list[list[float]]:
         if not texts:
             return []
             
@@ -59,6 +58,6 @@ class OpenAIEmbeddings(EmbeddingInterface):
                 await asyncio.sleep(backoff)
                 backoff *= 2
 
-    async def embed_query(self, text: str) -> List[float]:
+    async def embed_query(self, text: str) -> list[float]:
         docs = await self.embed_documents([text])
         return docs[0]

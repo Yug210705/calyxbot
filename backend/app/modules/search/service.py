@@ -1,5 +1,5 @@
 import uuid
-from typing import List, Dict, Any, Optional
+from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -19,9 +19,9 @@ class VectorSearchService:
         query: str, 
         limit: int = 5,
         threshold: float = None,
-        provider: Optional[str] = None,
-        status: Optional[str] = None
-    ) -> List[Dict[str, Any]]:
+        provider: str | None = None,
+        status: str | None = None
+    ) -> list[dict[str, Any]]:
         """
         Perform a semantic search across document chunks using pgvector.
         Returns a list of chunks ordered by similarity (cosine distance).

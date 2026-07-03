@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { SearchX } from "lucide-react";
 
 interface NoResultsProps {

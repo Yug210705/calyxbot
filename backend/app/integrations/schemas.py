@@ -1,7 +1,6 @@
 from datetime import datetime
 from uuid import UUID
 from pydantic import BaseModel
-from typing import Optional
 from dataclasses import dataclass
 
 class IntegrationProviderResponse(BaseModel):
@@ -17,10 +16,10 @@ class IntegrationConnectionResponse(BaseModel):
     display_name: str
     status: str
     health: str
-    connected_at: Optional[datetime]
-    last_sync_at: Optional[datetime]
+    connected_at: datetime | None
+    last_sync_at: datetime | None
     document_count: int
-    sync_state: Optional[str]
+    sync_state: str | None
 
 class SyncJobResponse(BaseModel):
     id: UUID
@@ -33,10 +32,10 @@ class SyncJobResponse(BaseModel):
     documents_failed: int
     bytes_processed: int
     duration_ms: int
-    error_message: Optional[str]
+    error_message: str | None
     created_at: datetime
-    started_at: Optional[datetime]
-    finished_at: Optional[datetime]
+    started_at: datetime | None
+    finished_at: datetime | None
 
 @dataclass
 class SyncDocumentResult:

@@ -2,13 +2,11 @@ import asyncio
 import uuid
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 import httpx
-import pytest
 
 from app.core.models import Base
 from app.integrations.services import IntegrationService, OAuthCredentialService
 from app.integrations.credentials import CredentialEncryptionService
 from app.integrations.oauth_state import create_oauth_state
-from app.integrations.models import Connector, OAuthCredential
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy import String

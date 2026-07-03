@@ -1,7 +1,6 @@
 import hashlib
 import re
-from typing import List, Dict, Any, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from app.modules.documents.tokenizer import Tokenizer
 
@@ -9,7 +8,7 @@ from app.modules.documents.tokenizer import Tokenizer
 class ChunkingConfig:
     max_tokens: int
     overlap_tokens: int
-    separators: List[str]
+    separators: list[str]
     preserve_headings: bool
     preserve_pages: bool
 
@@ -18,7 +17,7 @@ class HeadingContext:
     levels: tuple[str, ...] = ()
     
     @property
-    def hierarchy_str(self) -> Optional[str]:
+    def hierarchy_str(self) -> str | None:
         return " > ".join(self.levels) if self.levels else None
 
 @dataclass(frozen=True)
@@ -35,14 +34,14 @@ class ChunkResult:
     end_offset: int
     checksum: str
     language: str = "unknown"
-    page_number: Optional[int] = None
-    section_heading: Optional[str] = None
+    page_number: int | None = None
+    section_heading: str | None = None
     chunker_version: str = "1.1"
 
 def is_page_break(piece: str) -> bool:
     return "\f" in piece
 
-def extract_heading(piece: str) -> Optional[HeadingInfo]:
+def extract_heading(piece: str) -> HeadingInfo | None:
     match = re.match(r"^(#{1,6})\s+(.*)$", piece.strip())
     if match:
         return HeadingInfo(level=len(match.group(1)), text=match.group(2).strip())
@@ -69,7 +68,7 @@ class RecursiveChunker:
         base = f"{doc_checksum}_{text}_{start_offset}_{end_offset}"
         return hashlib.sha256(base.encode("utf-8")).hexdigest()
 
-    def _update_heading_dict(self, current_headings: Dict[int, str], heading: HeadingInfo) -> Dict[int, str]:
+    def _update_heading_dict(self, current_headings: dict[int, str], heading: HeadingInfo) -> dict[int, str]:
         new_headings = current_headings.copy()
         keys_to_delete = [k for k in new_headings.keys() if k >= heading.level]
         for k in keys_to_delete:
@@ -77,19 +76,19 @@ class RecursiveChunker:
         new_headings[heading.level] = heading.text
         return new_headings
 
-    def _build_heading_context(self, current_headings: Dict[int, str]) -> HeadingContext:
+    def _build_heading_context(self, current_headings: dict[int, str]) -> HeadingContext:
         sorted_levels = sorted(current_headings.keys())
         return HeadingContext(tuple(current_headings[l] for l in sorted_levels))
 
-    def chunk_document(self, text: str, document_checksum: str) -> List[ChunkResult]:
+    def chunk_document(self, text: str, document_checksum: str) -> list[ChunkResult]:
         if not text:
             return []
 
         chunks = []
-        current_headings: Dict[int, str] = {}
+        current_headings: dict[int, str] = {}
         current_page = 1
         
-        def _split_recursively(sub_text: str, offset: int, cur_headings: Dict[int, str], cur_page: int, allowed_separators: List[str]) -> List[tuple[str, int, Dict[int, str], int]]:
+        def _split_recursively(sub_text: str, offset: int, cur_headings: dict[int, str], cur_page: int, allowed_separators: list[str]) -> list[tuple[str, int, dict[int, str], int]]:
             token_len = self.tokenizer.count_tokens(sub_text)
             
             must_split = False
@@ -142,7 +141,7 @@ class RecursiveChunker:
 
         atomic_pieces = _split_recursively(text, 0, current_headings, current_page, self.config.separators)
         
-        def flush_buffer(buf: List[tuple[str, int, Dict[int, str], int]], index: int) -> Optional[ChunkResult]:
+        def flush_buffer(buf: list[tuple[str, int, dict[int, str], int]], index: int) -> ChunkResult | None:
             if not buf:
                 return None
             first_piece = buf[0]
@@ -175,7 +174,7 @@ class RecursiveChunker:
             )
 
         merged_chunks = []
-        buffer: List[tuple[str, int, Dict[int, str], int]] = []
+        buffer: list[tuple[str, int, dict[int, str], int]] = []
         current_tokens = 0
         chunk_index = 0
         has_body_content = False
@@ -185,9 +184,7 @@ class RecursiveChunker:
             
             if buffer:
                 is_boundary = False
-                if self.config.preserve_pages and piece_page != buffer[-1][3]:
-                    is_boundary = True
-                elif self.config.preserve_headings and is_hard_boundary_transition(has_body_content, piece_text):
+                if (self.config.preserve_pages and piece_page != buffer[-1][3]) or (self.config.preserve_headings and is_hard_boundary_transition(has_body_content, piece_text)):
                     is_boundary = True
                     
                 if is_boundary or (current_tokens + piece_tokens > self.config.max_tokens):

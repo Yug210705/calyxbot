@@ -1,5 +1,4 @@
 import uuid
-from typing import List, Optional
 
 from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,7 +15,7 @@ class KnowledgeRepository:
         await self.session.refresh(obj)
         return obj
 
-    async def get_object(self, org_id: uuid.UUID, canonical_key: str) -> Optional[KnowledgeObject]:
+    async def get_object(self, org_id: uuid.UUID, canonical_key: str) -> KnowledgeObject | None:
         stmt = select(KnowledgeObject).where(
             KnowledgeObject.organization_id == org_id,
             KnowledgeObject.canonical_key == canonical_key,
@@ -25,7 +24,7 @@ class KnowledgeRepository:
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
 
-    async def list_objects_by_type(self, org_id: uuid.UUID, obj_type: KnowledgeType) -> List[KnowledgeObject]:
+    async def list_objects_by_type(self, org_id: uuid.UUID, obj_type: KnowledgeType) -> list[KnowledgeObject]:
         stmt = select(KnowledgeObject).where(
             KnowledgeObject.organization_id == org_id,
             KnowledgeObject.type == obj_type,
@@ -40,7 +39,7 @@ class KnowledgeRepository:
         await self.session.refresh(relation)
         return relation
 
-    async def get_relations_for_object(self, org_id: uuid.UUID, obj_id: uuid.UUID) -> List[KnowledgeRelation]:
+    async def get_relations_for_object(self, org_id: uuid.UUID, obj_id: uuid.UUID) -> list[KnowledgeRelation]:
         stmt = select(KnowledgeRelation).join(
             KnowledgeObject, 
             KnowledgeObject.id == KnowledgeRelation.from_node_id

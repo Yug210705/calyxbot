@@ -1,6 +1,6 @@
 import abc
 import json
-from typing import Dict, Any
+from typing import Any
 from cryptography.fernet import Fernet
 from app.core.config import get_settings
 
@@ -26,13 +26,13 @@ class CredentialEncryptionService:
         key = self.key_provider.get_key(key_id)
         return Fernet(key)
 
-    def encrypt_credentials(self, credentials: Dict[str, Any], key_id: str = "default") -> bytes:
+    def encrypt_credentials(self, credentials: dict[str, Any], key_id: str = "default") -> bytes:
         """Encrypt a JSON dictionary of credentials into a binary blob."""
         json_data = json.dumps(credentials).encode("utf-8")
         fernet = self._get_fernet(key_id)
         return fernet.encrypt(json_data)
 
-    def decrypt_credentials(self, encrypted_blob: bytes, key_id: str = "default") -> Dict[str, Any]:
+    def decrypt_credentials(self, encrypted_blob: bytes, key_id: str = "default") -> dict[str, Any]:
         """Decrypt a binary blob back into a dictionary of credentials."""
         fernet = self._get_fernet(key_id)
         json_data = fernet.decrypt(encrypted_blob).decode("utf-8")

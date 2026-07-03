@@ -1,5 +1,4 @@
 import time
-import os
 import tracemalloc
 from app.modules.documents.chunker import RecursiveChunker, ChunkingConfig
 from app.modules.documents.tokenizer import Tokenizer

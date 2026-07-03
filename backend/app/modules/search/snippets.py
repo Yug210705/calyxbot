@@ -1,5 +1,4 @@
 import re
-from typing import List
 
 def extract_snippet(text: str, query: str, window_before: int = 120, window_after: int = 180) -> str:
     """

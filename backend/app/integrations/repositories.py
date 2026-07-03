@@ -1,5 +1,4 @@
 import uuid
-from typing import List, Optional
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,7 +15,7 @@ class ConnectorRepository:
         await self.session.refresh(credential)
         return credential
 
-    async def get_credential(self, org_id: uuid.UUID, provider: str) -> Optional[OAuthCredential]:
+    async def get_credential(self, org_id: uuid.UUID, provider: str) -> OAuthCredential | None:
         stmt = select(OAuthCredential).where(
             OAuthCredential.organization_id == org_id,
             OAuthCredential.connector_provider == provider,
@@ -32,7 +31,7 @@ class ConnectorRepository:
         await self.session.refresh(connector)
         return connector
 
-    async def get_by_org_and_provider(self, org_id: uuid.UUID, provider: str) -> Optional[Connector]:
+    async def get_by_org_and_provider(self, org_id: uuid.UUID, provider: str) -> Connector | None:
         stmt = select(Connector).where(
             Connector.organization_id == org_id,
             Connector.provider == provider,
@@ -41,7 +40,7 @@ class ConnectorRepository:
         result = await self.session.execute(stmt)
         return result.scalars().first()
 
-    async def list_by_org(self, org_id: uuid.UUID) -> List[Connector]:
+    async def list_by_org(self, org_id: uuid.UUID) -> list[Connector]:
         stmt = select(Connector).where(
             Connector.organization_id == org_id,
             Connector.deleted_at.is_(None)
@@ -55,8 +54,8 @@ class ConnectorRepository:
         org_id: uuid.UUID, 
         status: str, 
         health: str, 
-        sync_state: Optional[str] = None
-    ) -> Optional[Connector]:
+        sync_state: str | None = None
+    ) -> Connector | None:
         stmt = select(Connector).where(
             Connector.id == connector_id,
             Connector.organization_id == org_id,
@@ -83,7 +82,7 @@ class SyncJobRepository:
         await self.session.refresh(job)
         return job
 
-    async def get_job(self, org_id: uuid.UUID, job_id: uuid.UUID) -> Optional[SyncJob]:
+    async def get_job(self, org_id: uuid.UUID, job_id: uuid.UUID) -> SyncJob | None:
         stmt = select(SyncJob).where(
             SyncJob.id == job_id,
             SyncJob.organization_id == org_id
@@ -91,7 +90,7 @@ class SyncJobRepository:
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
         
-    async def list_jobs_by_connector(self, org_id: uuid.UUID, connector_id: uuid.UUID) -> List[SyncJob]:
+    async def list_jobs_by_connector(self, org_id: uuid.UUID, connector_id: uuid.UUID) -> list[SyncJob]:
         stmt = select(SyncJob).where(
             SyncJob.organization_id == org_id,
             SyncJob.connector_id == connector_id

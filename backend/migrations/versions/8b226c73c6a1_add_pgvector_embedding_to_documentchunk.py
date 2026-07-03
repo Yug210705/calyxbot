@@ -5,7 +5,7 @@ Revises: <latest_revision> # I should fetch the previous revision if needed, but
 Create Date: 2023-10-27 10:00:00.000000
 
 """
-from typing import Sequence, Union
+from collections.abc import Sequence
 
 from alembic import op
 import sqlalchemy as sa
@@ -14,9 +14,9 @@ import pgvector.sqlalchemy
 
 # revision identifiers, used by Alembic.
 revision: str = '8b226c73c6a1'
-down_revision: Union[str, None] = '2234be0f5041'
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+down_revision: str | None = '2234be0f5041'
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:

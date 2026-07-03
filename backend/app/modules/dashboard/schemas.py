@@ -1,12 +1,12 @@
 from datetime import datetime
 from pydantic import BaseModel
-from typing import Literal, Optional
+from typing import Literal
 
 class DashboardStatsResponse(BaseModel):
     connected_sources: int
     documents_total: int
     knowledge_objects_total: int
-    last_sync_at: Optional[datetime]
+    last_sync_at: datetime | None
 
 class DashboardActivityItemResponse(BaseModel):
     id: str
@@ -14,13 +14,13 @@ class DashboardActivityItemResponse(BaseModel):
     title: str
     description: str
     created_at: datetime
-    status: Optional[str] = None
+    status: str | None = None
 
 class DashboardChecklistItemResponse(BaseModel):
     id: str
     label: str
     completed: bool
-    href: Optional[str] = None
+    href: str | None = None
 
 class DashboardResponse(BaseModel):
     stats: DashboardStatsResponse

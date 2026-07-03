@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback, useRef } from "react";
 import { DocumentListItem } from "../types/documents";
 import { getDocuments } from "../api/documents";

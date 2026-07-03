@@ -1,10 +1,9 @@
 import uuid
-from typing import Dict, Any
+from typing import Any
 from datetime import datetime
 
 from app.core.queue import task_queue
 from app.core.events import event_bus
-from app.integrations.services import ConnectorFactory
 from app.integrations.models import SyncJob, SyncJobStatus, SyncJobDocumentLog, SyncJobDocumentOutcome
 from app.integrations.schemas import SyncDocumentResult
 from app.integrations.pipeline import (
@@ -26,7 +25,7 @@ class SyncWorker:
         # Register the handler
         task_queue.register_worker("sync_job", self.handle_sync_job)
 
-    async def handle_sync_job(self, payload: Dict[str, Any]):
+    async def handle_sync_job(self, payload: dict[str, Any]):
         org_id = uuid.UUID(payload["org_id"])
         connector_id = uuid.UUID(payload["connector_id"])
         job_id = uuid.UUID(payload["job_id"])

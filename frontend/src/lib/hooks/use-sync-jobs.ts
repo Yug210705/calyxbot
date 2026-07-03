@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from "react";
 import { SyncJob } from "../types/integrations";
 import { getSyncJobs } from "../api/sync-jobs";

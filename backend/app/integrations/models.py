@@ -1,9 +1,8 @@
 import uuid
 from datetime import datetime
 from enum import Enum
-from typing import Optional
 
-from sqlalchemy import BigInteger, Column, DateTime, Enum as SAEnum, ForeignKey, Integer, LargeBinary, String, Uuid as UUID
+from sqlalchemy import BigInteger, DateTime, Enum as SAEnum, ForeignKey, Integer, LargeBinary, String, Uuid as UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.models import Base, TimestampMixin
@@ -40,14 +39,14 @@ class Connector(Base, TimestampMixin):
     status: Mapped[ConnectorState] = mapped_column(SAEnum(ConnectorState), nullable=False, default=ConnectorState.ACTIVE)
     health: Mapped[str] = mapped_column(String, nullable=False, default="healthy")
     
-    provider_account_id: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    provider_account_id: Mapped[str | None] = mapped_column(String, nullable=True)
     
-    connected_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
-    last_sync_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    connected_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    last_sync_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     document_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
-    sync_state: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    sync_state: Mapped[str | None] = mapped_column(String, nullable=True)
     
-    deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class OAuthCredential(Base, TimestampMixin):
@@ -62,10 +61,10 @@ class OAuthCredential(Base, TimestampMixin):
     encryption_algorithm: Mapped[str] = mapped_column(String, default="AES-GCM", nullable=False)
     encrypted_blob: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
     
-    provider_account_id: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    provider_user_id: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    provider_account_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    provider_user_id: Mapped[str | None] = mapped_column(String, nullable=True)
     
-    deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 class SyncJob(Base, TimestampMixin):
     __tablename__ = "sync_jobs"
@@ -74,7 +73,7 @@ class SyncJob(Base, TimestampMixin):
     organization_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
     connector_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False) # Refers to a ConnectorInstance if created, or string
     
-    started_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), nullable=True)
+    started_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), nullable=True)
     trigger_type: Mapped[TriggerType] = mapped_column(SAEnum(TriggerType), nullable=False)
     status: Mapped[SyncJobStatus] = mapped_column(SAEnum(SyncJobStatus), nullable=False, default=SyncJobStatus.PENDING)
     
@@ -86,17 +85,17 @@ class SyncJob(Base, TimestampMixin):
     documents_failed: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     bytes_processed: Mapped[int] = mapped_column(BigInteger, default=0, nullable=False)
     duration_ms: Mapped[int] = mapped_column(BigInteger, default=0, nullable=False)
-    error_message: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    failure_reason_code: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    error_message: Mapped[str | None] = mapped_column(String, nullable=True)
+    failure_reason_code: Mapped[str | None] = mapped_column(String, nullable=True)
     
-    provider_cursor_before: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    provider_cursor_after: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    parent_job_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("sync_jobs.id"), nullable=True)
-    cancel_requested_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    provider_cursor_before: Mapped[str | None] = mapped_column(String, nullable=True)
+    provider_cursor_after: Mapped[str | None] = mapped_column(String, nullable=True)
+    parent_job_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("sync_jobs.id"), nullable=True)
+    cancel_requested_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     
-    started_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
-    finished_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
-    deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 class SyncJobDocumentOutcome(str, Enum):
     DISCOVERED = "DISCOVERED"
@@ -114,22 +113,22 @@ class SyncJobDocumentLog(Base, TimestampMixin):
     sync_job_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("sync_jobs.id"), nullable=False, index=True)
     integration_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("connectors.id"), nullable=False)
     
-    document_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
-    external_document_id: Mapped[Optional[str]] = mapped_column(String, nullable=True, index=True)
+    document_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
+    external_document_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
     document_title: Mapped[str] = mapped_column(String, nullable=False)
     provider: Mapped[str] = mapped_column(String, nullable=False)
     
     outcome: Mapped[SyncJobDocumentOutcome] = mapped_column(SAEnum(SyncJobDocumentOutcome), nullable=False)
-    failure_reason_code: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    failure_message: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    failure_reason_code: Mapped[str | None] = mapped_column(String, nullable=True)
+    failure_message: Mapped[str | None] = mapped_column(String, nullable=True)
     
     bytes_processed: Mapped[int] = mapped_column(BigInteger, default=0, nullable=False)
-    document_version_before: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    document_version_after: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    checksum_before: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    checksum_after: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    document_version_before: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    document_version_after: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    checksum_before: Mapped[str | None] = mapped_column(String, nullable=True)
+    checksum_after: Mapped[str | None] = mapped_column(String, nullable=True)
     
-    started_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
-    finished_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     duration_ms: Mapped[int] = mapped_column(BigInteger, default=0, nullable=False)
-    metadata_json: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    metadata_json: Mapped[str | None] = mapped_column(String, nullable=True)

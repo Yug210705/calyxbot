@@ -1,6 +1,5 @@
 import pytest
 import uuid
-import asyncio
 from unittest.mock import MagicMock
 from app.integrations.pipeline import PipelineContext
 from app.integrations.pipeline_stages import ChunkerStage, PipelineError

@@ -1,6 +1,5 @@
 from dataclasses import dataclass
-from typing import Literal, List, Dict
-import uuid
+from typing import Literal
 
 from app.modules.documents.models import DocumentChunk
 
@@ -16,13 +15,13 @@ class ChunkReindexPlanner:
 
     def plan(
         self, 
-        previous_chunks: List[DocumentChunk], 
-        new_chunks: List[DocumentChunk]
-    ) -> List[ChunkReindexDecision]:
+        previous_chunks: list[DocumentChunk], 
+        new_chunks: list[DocumentChunk]
+    ) -> list[ChunkReindexDecision]:
         
-        decisions: List[ChunkReindexDecision] = []
-        prev_map: Dict[str, DocumentChunk] = {str(c.id): c for c in previous_chunks}
-        new_map: Dict[str, DocumentChunk] = {str(c.id): c for c in new_chunks}
+        decisions: list[ChunkReindexDecision] = []
+        prev_map: dict[str, DocumentChunk] = {str(c.id): c for c in previous_chunks}
+        new_map: dict[str, DocumentChunk] = {str(c.id): c for c in new_chunks}
 
         # 1. Process all new chunks (either create or evaluate for re-embed/keep)
         for chunk_id, new_chunk in new_map.items():

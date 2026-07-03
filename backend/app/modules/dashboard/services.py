@@ -1,6 +1,4 @@
 import uuid
-from datetime import datetime
-from typing import List, Dict, Any
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -11,7 +9,7 @@ from app.modules.dashboard.schemas import (
     DashboardChecklistItemResponse,
 )
 
-from app.integrations.models import Connector, SyncJob, SyncJobStatus, ConnectorState
+from app.integrations.models import Connector, SyncJob, SyncJobStatus
 from app.modules.documents.models import Document, DocumentChunk
 
 class DashboardService:

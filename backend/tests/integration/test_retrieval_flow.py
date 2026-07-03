@@ -2,13 +2,10 @@ import uuid
 import pytest
 from unittest.mock import AsyncMock, patch, MagicMock
 
-from app.core.queue import task_queue
-from app.integrations.sync import SyncJobService
 from app.integrations.worker import SyncWorker
 from app.integrations.services import ConnectorFactory
 from app.modules.search.service import VectorSearchService
 from app.modules.search.embeddings import EmbeddingInterface
-from app.integrations.models import TriggerType
 from app.modules.documents.models import Document, DocumentChunk, DocumentStatus
 
 class MockEmbedder(EmbeddingInterface):

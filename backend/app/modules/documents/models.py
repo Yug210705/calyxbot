@@ -1,9 +1,8 @@
 import uuid
 from datetime import datetime
 from enum import Enum
-from typing import Optional
 
-from sqlalchemy import BigInteger, Column, DateTime, Enum as SAEnum, ForeignKey, String, Integer, Boolean, Index
+from sqlalchemy import DateTime, Enum as SAEnum, ForeignKey, String, Integer, Boolean, Index
 from sqlalchemy.dialects.postgresql import UUID
 from pgvector.sqlalchemy import Vector
 from sqlalchemy.orm import Mapped, mapped_column
@@ -30,27 +29,27 @@ class Document(Base, TimestampMixin):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     organization_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
-    connector_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), nullable=True) 
+    connector_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), nullable=True) 
     
     external_id: Mapped[str] = mapped_column(String, index=True, nullable=False)   
     title: Mapped[str] = mapped_column(String, nullable=False)
-    source: Mapped[Optional[str]] = mapped_column(String, nullable=True)                    
+    source: Mapped[str | None] = mapped_column(String, nullable=True)                    
     mime_type: Mapped[str] = mapped_column(String, nullable=False)
     checksum: Mapped[str] = mapped_column(String, nullable=False)
     
-    last_synced_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
-    sync_cursor: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    sync_version: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    ingestion_source: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    last_synced_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    sync_cursor: Mapped[str | None] = mapped_column(String, nullable=True)
+    sync_version: Mapped[str | None] = mapped_column(String, nullable=True)
+    ingestion_source: Mapped[str | None] = mapped_column(String, nullable=True)
     processing_attempts: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     
     status: Mapped[DocumentStatus] = mapped_column(SAEnum(DocumentStatus), default=DocumentStatus.PENDING, nullable=False)
-    root_document_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
-    parent_version_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
+    root_document_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
+    parent_version_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
     version: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
     is_latest: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     
-    deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 class DocumentChunk(Base, TimestampMixin):
     __tablename__ = "document_chunks"
@@ -63,17 +62,17 @@ class DocumentChunk(Base, TimestampMixin):
     
     start_offset: Mapped[int] = mapped_column(Integer, nullable=False)
     end_offset: Mapped[int] = mapped_column(Integer, nullable=False)
-    page_number: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    section_heading: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    page_number: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    section_heading: Mapped[str | None] = mapped_column(String, nullable=True)
     checksum: Mapped[str] = mapped_column(String, nullable=False)
     language: Mapped[str] = mapped_column(String, default="en", nullable=False)
     
     chunker_version: Mapped[str] = mapped_column(String, nullable=False)
-    embedding_version: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    embedding_version: Mapped[str | None] = mapped_column(String, nullable=True)
     source_document_version: Mapped[int] = mapped_column(Integer, nullable=False)
     
-    embedding: Mapped[Optional[list[float]]] = mapped_column(Vector(1536), nullable=True)
+    embedding: Mapped[list[float] | None] = mapped_column(Vector(1536), nullable=True)
     
     chunk_hash: Mapped[str] = mapped_column(String, index=True, nullable=False)
     
-    deleted_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

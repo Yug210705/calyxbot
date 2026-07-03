@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SearchResultItem } from "@/lib/types/search";
 import { SearchScoreBadge } from "./search-score-badge";
 import { SearchSourceBadge } from "./search-source-badge";

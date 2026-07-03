@@ -9,9 +9,6 @@ from app.modules.documents.services import DocumentVersioningService
 from app.modules.documents.models import Document, DocumentStatus
 
 from app.integrations.pipeline import PipelineExecutor
-from app.integrations.pipeline_stages import ChunkerStage, EmbedderStage
-from app.modules.documents.chunker import RecursiveChunker
-from app.modules.search.embeddings import EmbeddingInterface
 from app.modules.documents.repositories import ChunkRepository
 
 @pytest.fixture

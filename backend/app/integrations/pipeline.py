@@ -2,7 +2,7 @@ import uuid
 import time
 import abc
 import hashlib
-from typing import Dict, Any, List
+from typing import Any
 from dataclasses import dataclass, field
 
 from app.integrations.connectors.base import BaseConnector
@@ -26,12 +26,12 @@ class PipelineContext:
     org_id: uuid.UUID
     job_id: uuid.UUID
     connector_id: uuid.UUID
-    document_metadata: Dict[str, Any]
+    document_metadata: dict[str, Any]
     cancel_token: CancellationToken = field(default_factory=CancellationToken)
-    metrics: Dict[str, float] = field(default_factory=dict)
+    metrics: dict[str, float] = field(default_factory=dict)
     
     raw_content: bytes = None
-    normalized_content: Dict[str, Any] = None
+    normalized_content: dict[str, Any] = None
     document_id: uuid.UUID = None
     
     def with_raw_content(self, raw_content: bytes) -> 'PipelineContext':
@@ -41,7 +41,7 @@ class PipelineContext:
             raw_content=raw_content, normalized_content=self.normalized_content, document_id=self.document_id
         )
 
-    def with_normalized_content(self, normalized_content: Dict[str, Any]) -> 'PipelineContext':
+    def with_normalized_content(self, normalized_content: dict[str, Any]) -> 'PipelineContext':
         return PipelineContext(
             org_id=self.org_id, job_id=self.job_id, connector_id=self.connector_id,
             document_metadata=self.document_metadata, cancel_token=self.cancel_token, metrics=self.metrics,
@@ -75,7 +75,7 @@ class PipelineStage(abc.ABC):
 
 class PipelineExecutor:
     def __init__(self):
-        self._stages: List[PipelineStage] = []
+        self._stages: list[PipelineStage] = []
         
     def register(self, stage: PipelineStage):
         self._stages.append(stage)

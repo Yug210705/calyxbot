@@ -1,5 +1,5 @@
 import uuid
-from typing import Dict, Any
+from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -20,7 +20,7 @@ class OAuthCredentialService:
         self, 
         org_id: uuid.UUID, 
         provider: str, 
-        credentials: Dict[str, Any],
+        credentials: dict[str, Any],
         provider_account_id: str = None
     ) -> OAuthCredential:
         encrypted_blob = self.encryption_service.encrypt_credentials(credentials)
@@ -28,14 +28,14 @@ class OAuthCredentialService:
         cred = OAuthCredential(
             organization_id=org_id,
             connector_provider=provider,
-            key_id=f"kms-key-default", # In real env, map this to KMS key version
+            key_id="kms-key-default", # In real env, map this to KMS key version
             encryption_algorithm="AES-GCM",
             encrypted_blob=encrypted_blob,
             provider_account_id=provider_account_id
         )
         return await self.repo.create_credential(cred)
 
-    async def get_credentials(self, org_id: uuid.UUID, provider: str) -> Dict[str, Any]:
+    async def get_credentials(self, org_id: uuid.UUID, provider: str) -> dict[str, Any]:
         cred = await self.repo.get_credential(org_id, provider)
         if not cred:
             raise ValueError(f"No credentials found for provider {provider} in organization {org_id}")

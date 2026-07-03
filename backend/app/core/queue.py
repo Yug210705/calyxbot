@@ -1,7 +1,8 @@
 import abc
 import asyncio
 import logging
-from typing import Dict, Any, Callable, Awaitable
+from typing import Any
+from collections.abc import Callable, Awaitable
 
 logger = logging.getLogger(__name__)
 
@@ -15,11 +16,11 @@ class NonRetryableError(Exception):
 
 class TaskQueue(abc.ABC):
     @abc.abstractmethod
-    async def enqueue(self, task_type: str, payload: Dict[str, Any]) -> str:
+    async def enqueue(self, task_type: str, payload: dict[str, Any]) -> str:
         pass
 
     @abc.abstractmethod
-    def register_worker(self, task_type: str, handler: Callable[[Dict[str, Any]], Awaitable[None]]):
+    def register_worker(self, task_type: str, handler: Callable[[dict[str, Any]], Awaitable[None]]):
         pass
         
     @abc.abstractmethod
@@ -34,11 +35,11 @@ class InMemoryQueue(TaskQueue):
     def __init__(self, max_retries: int = 3):
         self.queue = asyncio.Queue()
         self.dead_letter_queue = asyncio.Queue()
-        self.handlers: Dict[str, Callable[[Dict[str, Any]], Awaitable[None]]] = {}
+        self.handlers: dict[str, Callable[[dict[str, Any]], Awaitable[None]]] = {}
         self._worker_tasks = []
         self.max_retries = max_retries
 
-    async def enqueue(self, task_type: str, payload: Dict[str, Any], attempt: int = 1) -> str:
+    async def enqueue(self, task_type: str, payload: dict[str, Any], attempt: int = 1) -> str:
         task_id = f"mem-{id(payload)}-{attempt}"
         await self.queue.put({
             "task_id": task_id, 
@@ -48,12 +49,12 @@ class InMemoryQueue(TaskQueue):
         })
         return task_id
 
-    async def _send_to_dlq(self, task: Dict[str, Any], reason: str):
+    async def _send_to_dlq(self, task: dict[str, Any], reason: str):
         logger.error(f"Task {task['task_id']} sent to DLQ. Reason: {reason}")
         task["dlq_reason"] = reason
         await self.dead_letter_queue.put(task)
 
-    def register_worker(self, task_type: str, handler: Callable[[Dict[str, Any]], Awaitable[None]]):
+    def register_worker(self, task_type: str, handler: Callable[[dict[str, Any]], Awaitable[None]]):
         self.handlers[task_type] = handler
 
     async def start_processing(self, concurrency: int = 1):

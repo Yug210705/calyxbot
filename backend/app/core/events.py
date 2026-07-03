@@ -1,18 +1,19 @@
 import logging
-from typing import Callable, Awaitable, Dict, List, Any
+from typing import Any
+from collections.abc import Callable, Awaitable
 
 logger = logging.getLogger(__name__)
 
 class EventBus:
     def __init__(self):
-        self._subscribers: Dict[str, List[Callable[[Dict[str, Any]], Awaitable[None]]]] = {}
+        self._subscribers: dict[str, list[Callable[[dict[str, Any]], Awaitable[None]]]] = {}
 
-    def subscribe(self, event_type: str, handler: Callable[[Dict[str, Any]], Awaitable[None]]):
+    def subscribe(self, event_type: str, handler: Callable[[dict[str, Any]], Awaitable[None]]):
         if event_type not in self._subscribers:
             self._subscribers[event_type] = []
         self._subscribers[event_type].append(handler)
 
-    async def publish(self, event_type: str, payload: Dict[str, Any]):
+    async def publish(self, event_type: str, payload: dict[str, Any]):
         handlers = self._subscribers.get(event_type, [])
         for handler in handlers:
             try:

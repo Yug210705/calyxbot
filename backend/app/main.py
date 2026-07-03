@@ -24,8 +24,6 @@ from app.modules.audit.services import AuditLogService
 from app.shared.events import event_bus
 from app.core.queue import task_queue
 from app.integrations.worker import SyncWorker
-from app.integrations.services import ConnectorFactory, OAuthCredentialService
-from app.integrations.credentials import CredentialEncryptionService, EnvironmentKeyProvider
 from app.core.database import AsyncSessionLocal
 
 # Setup logging immediately so everything during startup uses structlog
@@ -57,7 +55,6 @@ async def lifespan(app: FastAPI):
     SyncWorker(AsyncSessionLocal)
     
     # Start background task queue workers
-    import asyncio
     await task_queue.start_processing(concurrency=2)
 
     try:

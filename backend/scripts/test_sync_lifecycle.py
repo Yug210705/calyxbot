@@ -2,15 +2,13 @@ import asyncio
 import uuid
 import httpx
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
-from sqlalchemy import text
 
 from app.core.models import Base
 import app.modules.organizations.models
 import app.integrations.models
 import app.modules.documents.models
-from app.integrations.models import Connector, ConnectorState, SyncJob
+from app.integrations.models import Connector, ConnectorState
 from app.core.queue import task_queue
-from app.core.database import AsyncSessionLocal
 from app.main import app
 
 # Patch JSONB for sqlite compilation
@@ -29,8 +27,6 @@ async def setup_test_db():
     global AsyncSessionLocal
     import app.core.database as db
     import app.integrations.worker as worker
-    import app.integrations.services as services
-    import app.integrations.router as router
     
     db.AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
     worker.AsyncSessionLocal = db.AsyncSessionLocal
@@ -91,7 +87,7 @@ async def run_happy_path_api(session_maker):
         job_id = resp.json()["id"]
         
         # Test Duplicate Run Guard
-        print(f"\nTriggering duplicate sync while PENDING:")
+        print("\nTriggering duplicate sync while PENDING:")
         dup_resp = await client.post(f"/api/v1/integrations/{connector_id}/sync", headers=headers)
         print(f"POST /api/v1/integrations/{connector_id}/sync Response (Duplicate):")
         print(f"Status: {dup_resp.status_code}")

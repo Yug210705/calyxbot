@@ -1,6 +1,4 @@
 import asyncio
-import os
-import sys
 
 from app.core.database import SessionLocal
 from app.modules.search.services import VectorSearchService
