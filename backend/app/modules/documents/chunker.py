@@ -51,9 +51,7 @@ def is_hard_boundary_transition(has_body_content: bool, piece: str) -> bool:
     """Returns True if the piece introduces a boundary that should force a flush of the current buffer."""
     if is_page_break(piece):
         return True
-    if has_body_content and extract_heading(piece) is not None:
-        return True
-    return False
+    return has_body_content and extract_heading(piece) is not None
 
 class RecursiveChunker:
     """An enterprise-grade recursive chunker supporting overlaps, semantic boundaries, and metadata preservation."""
@@ -70,7 +68,7 @@ class RecursiveChunker:
 
     def _update_heading_dict(self, current_headings: dict[int, str], heading: HeadingInfo) -> dict[int, str]:
         new_headings = current_headings.copy()
-        keys_to_delete = [k for k in new_headings.keys() if k >= heading.level]
+        keys_to_delete = [k for k in new_headings if k >= heading.level]
         for k in keys_to_delete:
             del new_headings[k]
         new_headings[heading.level] = heading.text
@@ -78,7 +76,7 @@ class RecursiveChunker:
 
     def _build_heading_context(self, current_headings: dict[int, str]) -> HeadingContext:
         sorted_levels = sorted(current_headings.keys())
-        return HeadingContext(tuple(current_headings[l] for l in sorted_levels))
+        return HeadingContext(tuple(current_headings[lvl] for lvl in sorted_levels))
 
     def chunk_document(self, text: str, document_checksum: str) -> list[ChunkResult]:
         if not text:
@@ -126,9 +124,8 @@ class RecursiveChunker:
                             if heading:
                                 local_headings = self._update_heading_dict(local_headings, heading)
                                 
-                        if self.config.preserve_pages:
-                            if "\f" in actual_part:
-                                local_page += actual_part.count("\f")
+                        if self.config.preserve_pages and "\f" in actual_part:
+                            local_page += actual_part.count("\f")
                                 
                         next_separators = allowed_separators[sep_idx:] if actual_part != sub_text else allowed_separators[sep_idx + 1:]
                         sub_results = _split_recursively(actual_part, current_offset, local_headings, local_page, next_separators)

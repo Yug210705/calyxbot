@@ -69,14 +69,14 @@ async def google_callback(
     service: IntegrationService = Depends(get_integration_service)
 ):
     # This endpoint can redirect straight back to the frontend
-    FRONTEND_URL = "http://localhost:3000/integrations"
+    frontend_url = "http://localhost:3000/integrations"
     
     if error:
         logger.error("OAuth error returned from provider", error=error)
-        return RedirectResponse(f"{FRONTEND_URL}?error=oauth_failed")
+        return RedirectResponse(f"{frontend_url}?error=oauth_failed")
         
     if not state or not code:
-        return RedirectResponse(f"{FRONTEND_URL}?error=missing_params")
+        return RedirectResponse(f"{frontend_url}?error=missing_params")
         
     # The org_id is embedded in the signed state, so we extract it there
     # However, complete_google_connect requires org_id. 
@@ -90,12 +90,12 @@ async def google_callback(
         # We need an active session transaction to complete this
         await service.complete_google_connect(org_id, code, state)
         await service.session.commit() # Important to commit the changes!
-        return RedirectResponse(f"{FRONTEND_URL}?connected=google_drive")
+        return RedirectResponse(f"{frontend_url}?connected=google_drive")
         
     except Exception as e:
         logger.exception("Failed to complete Google OAuth", error=str(e))
         await service.session.rollback()
-        return RedirectResponse(f"{FRONTEND_URL}?error=oauth_failed")
+        return RedirectResponse(f"{frontend_url}?error=oauth_failed")
 
 @router.post("/{integration_id}/sync", response_model=SyncJobResponse, status_code=202)
 async def trigger_sync(

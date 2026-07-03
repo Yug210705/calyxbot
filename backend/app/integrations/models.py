@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from enum import Enum
 
-from sqlalchemy import BigInteger, DateTime, Enum as SAEnum, ForeignKey, Integer, LargeBinary, String, Uuid as UUID
+from sqlalchemy import BigInteger, DateTime, Enum as SAEnum, ForeignKey, Integer, LargeBinary, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.models import Base, TimestampMixin
@@ -31,8 +31,8 @@ class SyncJobStatus(str, Enum):
 class Connector(Base, TimestampMixin):
     __tablename__ = "connectors"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    organization_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
+    id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    organization_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
     provider: Mapped[str] = mapped_column(String, nullable=False)
     
     display_name: Mapped[str] = mapped_column(String, nullable=False)
@@ -52,8 +52,8 @@ class Connector(Base, TimestampMixin):
 class OAuthCredential(Base, TimestampMixin):
     __tablename__ = "oauth_credentials"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    organization_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
+    id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    organization_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
     connector_provider: Mapped[str] = mapped_column(String, nullable=False)
     
     credential_version: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
@@ -69,11 +69,11 @@ class OAuthCredential(Base, TimestampMixin):
 class SyncJob(Base, TimestampMixin):
     __tablename__ = "sync_jobs"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    organization_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
-    connector_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False) # Refers to a ConnectorInstance if created, or string
+    id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    organization_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey("organizations.id"), nullable=False)
+    connector_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), nullable=False) # Refers to a ConnectorInstance if created, or string
     
-    started_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), nullable=True)
+    started_by: Mapped[uuid.UUID | None] = mapped_column(Uuid(as_uuid=True), nullable=True)
     trigger_type: Mapped[TriggerType] = mapped_column(SAEnum(TriggerType), nullable=False)
     status: Mapped[SyncJobStatus] = mapped_column(SAEnum(SyncJobStatus), nullable=False, default=SyncJobStatus.PENDING)
     
@@ -90,7 +90,7 @@ class SyncJob(Base, TimestampMixin):
     
     provider_cursor_before: Mapped[str | None] = mapped_column(String, nullable=True)
     provider_cursor_after: Mapped[str | None] = mapped_column(String, nullable=True)
-    parent_job_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("sync_jobs.id"), nullable=True)
+    parent_job_id: Mapped[uuid.UUID | None] = mapped_column(Uuid(as_uuid=True), ForeignKey("sync_jobs.id"), nullable=True)
     cancel_requested_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     
     started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
@@ -109,11 +109,11 @@ class SyncJobDocumentOutcome(str, Enum):
 class SyncJobDocumentLog(Base, TimestampMixin):
     __tablename__ = "sync_job_document_logs"
 
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    sync_job_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("sync_jobs.id"), nullable=False, index=True)
-    integration_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("connectors.id"), nullable=False)
+    id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    sync_job_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey("sync_jobs.id"), nullable=False, index=True)
+    integration_id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), ForeignKey("connectors.id"), nullable=False)
     
-    document_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("documents.id"), nullable=True)
+    document_id: Mapped[uuid.UUID | None] = mapped_column(Uuid(as_uuid=True), ForeignKey("documents.id"), nullable=True)
     external_document_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
     document_title: Mapped[str] = mapped_column(String, nullable=False)
     provider: Mapped[str] = mapped_column(String, nullable=False)

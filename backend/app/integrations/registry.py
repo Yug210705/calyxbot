@@ -1,9 +1,10 @@
+from typing import ClassVar
 from app.integrations.connectors.base import BaseConnector
 
 class ConnectorRegistry:
     """Central registry for discovering and instantiating connectors."""
     
-    _connectors: dict[str, type[BaseConnector]] = {}
+    _connectors: ClassVar[dict[str, type[BaseConnector]]] = {}
 
     @classmethod
     def register(cls, connector_cls: type[BaseConnector]) -> None:

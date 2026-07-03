@@ -42,7 +42,7 @@ def run_benchmark():
         chunks = chunker.chunk_document(text, "dummy_checksum")
         
         end_time = time.time()
-        current, peak = tracemalloc.get_traced_memory()
+        _current, peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
         
         elapsed = end_time - start_time

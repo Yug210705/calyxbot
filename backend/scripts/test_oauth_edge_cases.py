@@ -113,7 +113,7 @@ async def run_tests():
         
         try:
             await service.complete_google_connect(org_id, "valid_code", state_c)
-            assert False, "Should have raised ValueError for mismatched account"
+            raise AssertionError("Should have raised ValueError for mismatched account")
         except ValueError as e:
             assert "Another Google Drive account is already connected" in str(e)
             print("✅ Test C passed (Error raised correctly)")
@@ -125,7 +125,7 @@ async def run_tests():
         
         try:
             await service.complete_google_connect(org_id, "invalid_code", state_d)
-            assert False, "Should have raised exception"
+            raise AssertionError("Should have raised exception")
         except ValueError as e:
             print("✅ Test D passed (Error raised correctly)")
             await session.rollback()

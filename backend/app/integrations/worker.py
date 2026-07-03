@@ -180,7 +180,7 @@ class SyncWorker:
 def enqueue_sync_job(org_id: uuid.UUID, job_id: uuid.UUID, provider: str):
     import asyncio
     # Fire and forget enqueue
-    asyncio.create_task(task_queue.enqueue("sync_job", {
+    _ = asyncio.create_task(task_queue.enqueue("sync_job", {  # noqa: RUF006
         "org_id": str(org_id),
         "connector_id": str(job_id), # Using job_id as fallback for Day 2 mocks, since _process_job doesn't strictly need connector ID yet
         "job_id": str(job_id),

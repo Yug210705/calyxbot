@@ -1,3 +1,7 @@
+import urllib.parse
+import httpx
+import time
+from app.core.config import get_settings
 import abc
 from typing import Any
 from collections.abc import Callable, Awaitable
@@ -40,11 +44,6 @@ class OAuthTokenRefresher:
             await self.persist_callback(credentials)
             
         return await api_call(credentials)
-
-import urllib.parse
-import httpx
-import time
-from app.core.config import get_settings
 
 class GoogleOAuthFlowManager(OAuthFlowManager):
     def generate_authorization_url(self, state: str) -> str:

@@ -28,8 +28,8 @@ async def test():
         created_at=datetime.datetime.now(datetime.UTC)
     )
     
-    with patch("app.modules.documents.services.DocumentRepository") as MockRepo:
-        repo_instance = MockRepo.return_value
+    with patch("app.modules.documents.services.DocumentRepository") as mock_repo:
+        repo_instance = mock_repo.return_value
         
         # Setup mock returns
         repo_instance.list_documents = AsyncMock(return_value=([(mock_doc, "google_drive")], 1))

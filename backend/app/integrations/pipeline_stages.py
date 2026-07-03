@@ -112,7 +112,7 @@ class EmbedderStage(PipelineStage):
         texts = [c.text for c in chunks]
         embeddings = await self.embedder.embed_documents(texts)
         
-        for chunk, embedding in zip(chunks, embeddings):
+        for chunk, embedding in zip(chunks, embeddings, strict=True):
             chunk.embedding = embedding
             
         await self.repo.update_many(chunks)

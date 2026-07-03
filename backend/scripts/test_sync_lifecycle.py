@@ -187,7 +187,7 @@ async def run_failure_path_api(session_maker):
             print(fail_resp.json())
 
 async def main():
-    engine, session_maker = await setup_test_db()
+    _engine, session_maker = await setup_test_db()
     await run_happy_path_api(session_maker)
     await run_failure_path_api(session_maker)
 
