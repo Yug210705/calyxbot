@@ -49,10 +49,18 @@ export async function getIntegrationsOverview(orgId: string): Promise<{
 }
 
 export async function connectGoogleDrive(orgId: string): Promise<{ authorization_url: string } | null> {
-  return await apiFetch<{ authorization_url: string }>("/integrations/google/connect", {
-    method: "POST",
-    organizationId: orgId
-  });
+  try {
+    return await apiFetch<{ authorization_url: string }>("/integrations/google/connect", {
+      method: "POST",
+      organizationId: orgId
+    });
+  } catch (error) {
+    if (USE_UI_MOCKS || shouldFallbackToMock(error)) {
+      console.warn("Real API failed, returning mock authorization URL for Google Drive");
+      return { authorization_url: "/integrations?connected=google_drive" };
+    }
+    throw error;
+  }
 }
 
 
