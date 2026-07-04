@@ -64,5 +64,8 @@ export const mockDashboardData: DashboardResponse = {
     activeSources: "1",
     documentsIndexedToday: "142",
     lastSyncLabel: "15 minutes ago",
+    search: "ready",
+    ingestion: "connected",
+    sync: "healthy",
   }
 };

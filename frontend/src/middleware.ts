@@ -8,11 +8,12 @@ export async function middleware(request: NextRequest) {
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const isMockUi = process.env.NEXT_PUBLIC_USE_UI_MOCKS === "true";
 
   // If Supabase environment variables are missing, assume we are in a mock/demo environment
   // and bypass the authentication checks to prevent the middleware from crashing.
-  if (!supabaseUrl || !supabaseKey) {
-    console.warn('Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY, bypassing auth.');
+  if (!supabaseUrl || !supabaseKey || isMockUi || supabaseUrl === 'https://mock.supabase.co') {
+    console.warn('Bypassing auth (Missing credentials or Mock environment detected).');
     return supabaseResponse;
   }
 
