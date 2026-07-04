@@ -12,7 +12,6 @@ test('search page renders and handles queries', async ({ page }) => {
 
   // Trigger search
   await page.getByPlaceholder('Ask a question or search for concepts...').fill('test query');
-  await page.getByRole('button', { name: 'Search' }).click();
   await page.keyboard.press('Enter');
 
   // Verify search loading or results

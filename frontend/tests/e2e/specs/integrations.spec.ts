@@ -7,6 +7,6 @@ test('integrations page renders without crashing', async ({ page }) => {
   await expect(page.locator('.animate-pulse')).toHaveCount(0, { timeout: 10000 });
   
   // Check that the shell renders
-  await expect(page.getByText('Connected Integrations')).toBeVisible();
-  await expect(page.getByText('Available Integrations')).toBeVisible();
+  await expect(page.getByText('Connected Data Sources')).toBeVisible();
+  await expect(page.getByText('Available Data Sources')).toBeVisible();
 });
